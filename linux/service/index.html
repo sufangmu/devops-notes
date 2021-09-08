@@ -1,0 +1,3328 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="苏方木的笔记">
+      
+      
+      
+        <meta name="author" content="苏方木">
+      
+      
+        <link rel="canonical" href="https://github.com/sufangmu/notes/linux/service/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.6">
+    
+    
+      
+        <title>Linux中常用的服务 - 苏方木的笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.802231af.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,700%7CUbuntu+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Ubuntu";--md-code-font-family:"Ubuntu Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="苏方木的笔记" class="md-header__button md-logo" aria-label="苏方木的笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            苏方木的笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux中常用的服务
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      首页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../command-line/" class="md-tabs__link">
+        Linux
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../databases/MySQL/%E5%AE%89%E8%A3%85/" class="md-tabs__link">
+        数据库
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../web/%E5%8D%8F%E8%AE%AE/HTTP/" class="md-tabs__link">
+        前端
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/01-python%E7%AE%80%E4%BB%8B/" class="md-tabs__link">
+        编程语言
+      </a>
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Virtualization/Docker/%E5%AE%89%E8%A3%85/" class="md-tabs__link">
+        虚拟化
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../CICD/Git/Git/" class="md-tabs__link">
+        CI&CD
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../resource/docs/" class="md-tabs__link">
+        资源
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../music/xiao/" class="md-tabs__link">
+        音乐
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="苏方木的笔记" class="md-nav__button md-logo" aria-label="苏方木的笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    苏方木的笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        首页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../command-line/" class="md-nav__link">
+        命令行
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../grep_sed_awk/" class="md-nav__link">
+        文本处理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ShellScript/" class="md-nav__link">
+        ShellScript
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vim/" class="md-nav__link">
+        VIM
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        网络
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="网络" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          网络
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/TCP/" class="md-nav__link">
+        TCP/IP
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/iptables/" class="md-nav__link">
+        Iptables
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/" class="md-nav__link">
+        文档
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        数据库
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="数据库" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          数据库
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      <label class="md-nav__link" for="__nav_3_1">
+        mysql
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="mysql" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          mysql
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        安装
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        用户管理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        数据类型和运算符
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/SQL/" class="md-nav__link">
+        SQL
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        存储过程和函数
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/%E7%B4%A2%E5%BC%95/" class="md-nav__link">
+        索引
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92/" class="md-nav__link">
+        执行计划
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        前端
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="前端" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          前端
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/%E5%8D%8F%E8%AE%AE/HTTP/" class="md-nav__link">
+        HTTP
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/%E5%8D%8F%E8%AE%AE/RESTful/" class="md-nav__link">
+        RESTful
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/%E8%AF%AD%E8%A8%80/html/" class="md-nav__link">
+        HTML
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/%E8%AF%AD%E8%A8%80/CSS/" class="md-nav__link">
+        CSS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/%E8%AF%AD%E8%A8%80/JavaScript/" class="md-nav__link">
+        JavaScript
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/%E6%A1%86%E6%9E%B6/jQuery/" class="md-nav__link">
+        jQuery
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        编程语言
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="编程语言" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          编程语言
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1" type="checkbox" id="__nav_5_1" >
+      
+      <label class="md-nav__link" for="__nav_5_1">
+        Python
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Python" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1_1" type="checkbox" id="__nav_5_1_1" >
+      
+      <label class="md-nav__link" for="__nav_5_1_1">
+        基础
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基础" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/01-python%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        python简介
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/02-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        基本数据类型
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/03-%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        逻辑控制
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/04-%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        函数
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/05-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" class="md-nav__link">
+        面向对象
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/06-%E5%8C%85%E5%92%8C%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        包和模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/07-%E8%BF%AD%E4%BB%A3%E5%92%8C%E6%8E%A8%E5%AF%BC/" class="md-nav__link">
+        迭代和推导
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/08-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+        文件处理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/09-%E5%BC%82%E5%B8%B8%E4%B8%8E%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        异常处理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/01-%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        内置模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/02-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        并行编程
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/03-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        网络编程
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/04-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        数据库编程
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1_2" type="checkbox" id="__nav_5_1_2" >
+      
+      <label class="md-nav__link" for="__nav_5_1_2">
+        Django
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Django" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Django
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/install/" class="md-nav__link">
+        安装
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/response/" class="md-nav__link">
+        请求响应三板斧
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/urls/" class="md-nav__link">
+        路由层
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/view/" class="md-nav__link">
+        视图层
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/template/" class="md-nav__link">
+        模板层
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/model/" class="md-nav__link">
+        模型层
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/middleware/" class="md-nav__link">
+        中间件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/forms/" class="md-nav__link">
+        表单
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/auth/" class="md-nav__link">
+        auth模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/cookie%26session/" class="md-nav__link">
+        cookie和session
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/admin/" class="md-nav__link">
+        admin
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1_3" type="checkbox" id="__nav_5_1_3" >
+      
+      <label class="md-nav__link" for="__nav_5_1_3">
+        DjangoRESTframework
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="DjangoRESTframework" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          DjangoRESTframework
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/install/" class="md-nav__link">
+        安装
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        序列化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94/" class="md-nav__link">
+        请求和响应
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E8%A7%86%E5%9B%BE/" class="md-nav__link">
+        视图
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        路由
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E8%AE%A4%E8%AF%81%E3%80%81%E6%9D%83%E9%99%90%E5%92%8C%E9%A2%91%E7%8E%87/" class="md-nav__link">
+        认证、权限和频率
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E8%BF%87%E6%BB%A4%E3%80%81%E6%8E%92%E5%BA%8F%E3%80%81%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="md-nav__link">
+        过滤、排序、异常处理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E8%87%AA%E5%AE%9A%E4%B9%89response/" class="md-nav__link">
+        自定义response
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1_4" type="checkbox" id="__nav_5_1_4" >
+      
+      <label class="md-nav__link" for="__nav_5_1_4">
+        Flask
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Flask" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          Flask
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Flask/install/" class="md-nav__link">
+        简介与安装
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Jinja2/" class="md-nav__link">
+        Jinja2
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        数据结构和算法
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" type="checkbox" id="__nav_5_2" >
+      
+      <label class="md-nav__link" for="__nav_5_2">
+        Java
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Java" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Java
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2_1" type="checkbox" id="__nav_5_2_1" >
+      
+      <label class="md-nav__link" for="__nav_5_2_1">
+        基础
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基础" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        语法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        数组
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89/" class="md-nav__link">
+        面向对象（一）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%BA%8C%EF%BC%89/" class="md-nav__link">
+        面向对象（二）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%89%EF%BC%89/" class="md-nav__link">
+        面向对象（三）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/equals%28%29%E5%92%8C%3D%3D/" class="md-nav__link">
+        equals()和==
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        虚拟化
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="虚拟化" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          虚拟化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Docker
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Docker" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Docker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/Docker/%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        实现
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      <label class="md-nav__link" for="__nav_7">
+        CI&CD
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CI&CD" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          CI&CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" >
+      
+      <label class="md-nav__link" for="__nav_7_1">
+        版本控制
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="版本控制" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          版本控制
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CICD/Git/Git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      <label class="md-nav__link" for="__nav_7_2">
+        Jenkins
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Jenkins" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Jenkins
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CICD/Jenkins/jenkins-pipeline-syntax/" class="md-nav__link">
+        pipeline-syntax
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CICD/Jenkins/jenkinsfile/" class="md-nav__link">
+        jenkinsfile
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      <label class="md-nav__link" for="__nav_7_3">
+        Ansible
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Ansible" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CICD/Ansible/ansible/" class="md-nav__link">
+        Ansible基础
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      <label class="md-nav__link" for="__nav_7_4">
+        Jenkins
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Jenkins" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Jenkins
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CICD/Jenkins/Jenkins%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        Jenkins基础
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      <label class="md-nav__link" for="__nav_8">
+        资源
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="资源" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          资源
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resource/docs/" class="md-nav__link">
+        资源
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      <label class="md-nav__link" for="__nav_9">
+        音乐
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="音乐" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          音乐
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../music/xiao/" class="md-nav__link">
+        箫
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../music/zhudi/" class="md-nav__link">
+        笛
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../music/guqin/" class="md-nav__link">
+        古琴
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../music/pipa/" class="md-nav__link">
+        琵琶
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../music/erhu/" class="md-nav__link">
+        二胡
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ftp" class="md-nav__link">
+    一、FTP
+  </a>
+  
+    <nav class="md-nav" aria-label="一、FTP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 介绍
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ftp" class="md-nav__link">
+    1. FTP 的工作模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2.用户认证方式
+  </a>
+  
+    <nav class="md-nav" aria-label="2.用户认证方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1ftp" class="md-nav__link">
+    1.匿名用户：ftp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2linux" class="md-nav__link">
+    2.系统用户：Linux系统用户
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3.虚拟用户：多个虚拟用户映射到一个系统用户
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2.安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    3. 配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 用户管理
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 用户管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    １. 匿名用户
+  </a>
+  
+    <nav class="md-nav" aria-label="１. 匿名用户">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1 允许匿名用户登陆
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2 允许匿名用户上传和建立目录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    2. 系统用户
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 系统用户">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    1. 系统用户登陆
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    3.虚拟用户
+  </a>
+  
+    <nav class="md-nav" aria-label="3.虚拟用户">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 创建虚拟用户
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 创建虚拟用户">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    3.1.１. 创建本地系统用户
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312" class="md-nav__link">
+    3.1.2. 建立虚拟账户名单
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313" class="md-nav__link">
+    3.1.３.生成虚拟账户的数据库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#314" class="md-nav__link">
+    3.1.4.修改配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#315" class="md-nav__link">
+    3.1.5.重启服务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#316" class="md-nav__link">
+    3.1.6. 最终配置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2. 实现虚拟用户不同权限
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2. 实现虚拟用户不同权限">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-ftp" class="md-nav__link">
+    3.2.1 修改FTP主配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-1" class="md-nav__link">
+    3.2.2 给每个虚拟用户创建一个独立的权限配置文件-版本1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-2" class="md-nav__link">
+    3.2.3 给每个虚拟用户创建一个独立的权限配置文件-版本2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    二、SSH
+  </a>
+  
+    <nav class="md-nav" aria-label="二、SSH">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    1. 执行命令
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 执行命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_4" class="md-nav__link">
+    1. 执行单条命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    2. 执行带参数的命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_3" class="md-nav__link">
+    3. 执行多条命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    4. 执行多行命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 执行交互命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 使用本地变量
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-ssh" class="md-nav__link">
+    2. ssh执行脚本
+  </a>
+  
+    <nav class="md-nav" aria-label="2. ssh执行脚本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_5" class="md-nav__link">
+    1. 执行远程不带参数的脚本
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_4" class="md-nav__link">
+    2. 执行远程需要参数的脚本
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_4" class="md-nav__link">
+    3. 执行本地不带参数的脚本
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_2" class="md-nav__link">
+    4. 执行本地需要参数的脚本文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="linux">Linux中常用的服务<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h1>
+<h2 id="ftp">一、FTP<a class="headerlink" href="#ftp" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 介绍<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>FTP 是 File Transfer Protocol （文件传输协议）的缩写 ，在 Unix/Linux 系统中常用的免费 FTP 服务器软件主要是 VSFTP，vsftp的官方地址：http://vsftpd.beasts.org</p>
+<h4 id="1-ftp">1. FTP 的工作模式<a class="headerlink" href="#1-ftp" title="Permanent link">&para;</a></h4>
+<p>FTP工作时会开两个端口，一个命令端口（TCP:21），一个数据端口(TCP:20)</p>
+<p>1.1 主动模式 （Active FTP）</p>
+<p>服务器主动连接客户端</p>
+<p>FTP 客户端随机开启一个大于1024 的端口 N 向服务器的 21 号端口发起连接，然后开放 N+1 号端口进行监听，并向服务器发出PORT N+1 命令。服务器接收到命令后，会用其本地的 FTP 数据端口（通常是 20 ）来连接客户端指定的端口 N+1 ，进行数据传输</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>         client                           server
+
+命令控制    1088         ------&gt;             21
+
+数据传输    1089         &lt;------     　　　　 20
+</code></pre></div>
+</td></tr></table>
+<p>1.2 被动模式（Passive FTP）</p>
+<p>客户端主动链接服务器端</p>
+<p>FTP 客户端随机开启一个大于1024 的端口 N 向服务器的 21 号端口发起连接，同时会开启 N+1 号端口。然后向服务器发送PASV 命令，通知服务器自己处于被动模式。服务器收到命令后，会开放一个大于 1024 的端口 P 进行监听，然后用 PORT P 命令通知客户端，自己的数据端口是 P 。客户端收到命令后，会通过 N+1号端后连接服务器的端口 P ，然后在两个端口之间进行数据传输</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>            client                      server
+命令控制     1088      ----------&gt;         21
+数据传输     1089      -- PASV --&gt;        1099
+</code></pre></div>
+</td></tr></table>
+<p>关于两者的区别参考：http://slacksite.com/other/ftp.html</p>
+<h4 id="2">2.用户认证方式<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<h5 id="1ftp">1.匿名用户：ftp<a class="headerlink" href="#1ftp" title="Permanent link">&para;</a></h5>
+<h5 id="2linux">2.系统用户：Linux系统用户<a class="headerlink" href="#2linux" title="Permanent link">&para;</a></h5>
+<h5 id="3">3.虚拟用户：多个虚拟用户映射到一个系统用户<a class="headerlink" href="#3" title="Permanent link">&para;</a></h5>
+<h3 id="2_1">2.安装<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<p>ubuntu14.04</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>$ sudo dpkg -i vsftpd_3.0.2-1ubuntu2.14.04.1_amd64.deb
+$ netstat  -lant <span class="p">|</span> grep <span class="m">21</span>
+tcp        <span class="m">0</span>      <span class="m">0</span> <span class="m">0</span>.0.0.0:21              <span class="m">0</span>.0.0.0:*               LISTEN
+</code></pre></div>
+</td></tr></table>
+<h3 id="3_1">3. 配置文件<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>用户认证配置文件:/etc/pam.d/vsftpd</li>
+<li>
+<p>主配置文件:/etc/vsftpd.conf</p>
+</li>
+<li>
+<p>匿名用户（映射为系统用户ftp ）共享文件位置：/srv/ftp</p>
+</li>
+</ul>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nv">anonymous_enable</span><span class="o">=</span>NO             <span class="c1"># 是否允许匿名用户登陆，模式不允许</span>
+<span class="nv">local_enable</span><span class="o">=</span>YES                <span class="c1"># 允许系统用户登陆</span>
+<span class="c1">#write_enable=YES               # 允许登陆用户进行写操作，默认不允许</span>
+<span class="c1">#local_umask=022                #　用户登陆后创建文件的umask值</span>
+<span class="c1">#anon_upload_enable=YES         #　允许匿名用户上传文件</span>
+<span class="c1">#anon_mkdir_write_enable=YES    #　允许匿名用户创建目录</span>
+<span class="nv">dirmessage_enable</span><span class="o">=</span>YES           <span class="c1">#　是否显示目录说明文件, 需要收工创建.message文件</span>
+<span class="nv">use_localtime</span><span class="o">=</span>YES               <span class="c1">#　使用本地时间</span>
+<span class="nv">xferlog_enable</span><span class="o">=</span>YES              <span class="c1">#　开启上传下载日志</span>
+<span class="nv">connect_from_port_20</span><span class="o">=</span>YES        <span class="c1">#　数据传输端口</span>
+<span class="c1">#chown_uploads=YES              # 是否改变上传文件的属主  </span>
+<span class="c1">#chown_username=whoever     ·   # 如果是需要输入一个系统用户名</span>
+<span class="c1">#xferlog_file=/var/log/vsftpd.log   ＃　日志文件的路径</span>
+<span class="c1">#xferlog_std_format=YES # 是否使用标准的ftp xferlog模式</span>
+<span class="c1">#idle_session_timeout=600   # session超时时间</span>
+<span class="c1">#data_connection_timeout=120　　 # 设置数据传输超时时间</span>
+<span class="c1">#nopriv_user=ftpsecure          # 运行vsftpd需要的非特权系统用户默认是nobody</span>
+<span class="c1">#async_abor_enable=YES          # 是否允许运行特殊的ftp命令async ABOR</span>
+<span class="c1">#ascii_upload_enable=YES        # 是否使用ascii码方式上传文件</span>
+<span class="c1">#ascii_download_enable=YES      # 是否使用ascii码方式下载文件</span>
+<span class="c1">#ftpd_banner=Welcome to blah FTP service. # 定制欢迎信息</span>
+<span class="c1">#deny_email_enable=YES          # 是否允许禁止匿名用户使用某些邮件地址</span>
+<span class="c1">#banned_email_file=/etc/vsftpd.banned_emails    # 禁止邮件地址的文件路径</span>
+<span class="c1">#chroot_local_user=YES          # 本地用户禁锢在宿主目录中</span>
+<span class="c1">#chroot_list_enable=YES         # 是否将系统用户限止在自己的home目录下</span>
+<span class="c1">#chroot_list_file=/etc/vsftpd.chroot_list   # 列出的是不chroot的用户的列表</span>
+<span class="c1">#ls_recurse_enable=YES          # 是否允许使用ls -R等命令</span>
+<span class="nv">secure_chroot_dir</span><span class="o">=</span>/var/run/vsftpd/empty
+<span class="nv">pam_service_name</span><span class="o">=</span>vsftpd         <span class="c1"># pam的配置文件名称 /etc/pam.d/vsftpd</span>
+<span class="nv">rsa_cert_file</span><span class="o">=</span>/etc/ssl/certs/ssl-cert-snakeoil.pem
+<span class="nv">rsa_private_key_file</span><span class="o">=</span>/etc/ssl/private/ssl-cert-snakeoil.key
+</code></pre></div>
+</td></tr></table>
+<h3 id="4">4. 用户管理<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<h4 id="1_1">１. 匿名用户<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h4>
+<h5 id="11">1.1 允许匿名用户登陆<a class="headerlink" href="#11" title="Permanent link">&para;</a></h5>
+<p>修改配置文件</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>$ sudo vim /etc/vsftpd.conf
+<span class="nv">nonymous_enable</span><span class="o">=</span>YES
+$ sudo service vsftpd restart
+</code></pre></div>
+</td></tr></table>
+<p>测试：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>shuowei@gaopeng:~$ ftp <span class="m">172</span>.16.10.101
+Connected to <span class="m">172</span>.16.10.101.
+<span class="m">220</span> <span class="o">(</span>vsFTPd <span class="m">3</span>.0.2<span class="o">)</span>
+Name <span class="o">(</span><span class="m">172</span>.16.10.101:shuowei<span class="o">)</span>: ftp   <span class="c1"># 登陆用户为ftp</span>
+<span class="m">331</span> Please specify the password.
+Password:                           <span class="c1"># 密码随意，可以为空</span>
+<span class="m">230</span> Login successful.
+Remote system <span class="nb">type</span> is UNIX.
+Using binary mode to transfer files.
+ftp&gt; ls
+<span class="m">200</span> PORT <span class="nb">command</span> successful. Consider using PASV.
+<span class="m">150</span> Here comes the directory listing.
+-rw-r--r--    <span class="m">1</span> <span class="m">0</span>        <span class="m">0</span>               <span class="m">0</span> Jan <span class="m">25</span> <span class="m">11</span>:12 test.txt
+<span class="m">226</span> Directory send OK.
+ftp&gt; get test.txt                   <span class="c1"># 有下载的权限</span>
+local: test.txt remote: test.txt
+<span class="m">200</span> PORT <span class="nb">command</span> successful. Consider using PASV.
+<span class="m">150</span> Opening BINARY mode data connection <span class="k">for</span> test.txt <span class="o">(</span><span class="m">0</span> bytes<span class="o">)</span>.
+<span class="m">226</span> Transfer complete.
+ftp&gt; delete test.txt                <span class="c1"># 没有写的权限</span>
+<span class="m">550</span> Permission denied.
+ftp&gt;
+</code></pre></div>
+</td></tr></table>
+<h5 id="12">1.2 允许匿名用户上传和建立目录<a class="headerlink" href="#12" title="Permanent link">&para;</a></h5>
+<p>修改配置文件</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>$ sudo vim /etc/vsftpd.conf
+<span class="nv">nonymous_enable</span><span class="o">=</span>YES
+<span class="nv">write_enable</span><span class="o">=</span>YES
+<span class="nv">anon_upload_enable</span><span class="o">=</span>YES
+<span class="nv">anon_mkdir_write_enable</span><span class="o">=</span>YES
+$ sudo service vsftpd restart
+</code></pre></div>
+</td></tr></table>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>$ sudo mkdir /srv/ftp/pub
+$ sudo chown ftp. /srv/ftp/pub/
+$ sudo chmod <span class="m">777</span>  /srv/ftp/pub/
+</code></pre></div>
+</td></tr></table>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>shuowei@gaopeng:~$ ftp <span class="m">172</span>.16.10.101
+Connected to <span class="m">172</span>.16.10.101.
+<span class="m">220</span> <span class="o">(</span>vsFTPd <span class="m">3</span>.0.2<span class="o">)</span>
+Name <span class="o">(</span><span class="m">172</span>.16.10.101:shuowei<span class="o">)</span>: ftp
+<span class="m">331</span> Please specify the password.
+Password:
+<span class="m">230</span> Login successful.
+Remote system <span class="nb">type</span> is UNIX.
+Using binary mode to transfer files.
+ftp&gt; ls
+<span class="m">200</span> PORT <span class="nb">command</span> successful. Consider using PASV.
+<span class="m">150</span> Here comes the directory listing.
+drwxrwxrwx    <span class="m">2</span> <span class="m">105</span>      <span class="m">112</span>          <span class="m">4096</span> Jan <span class="m">25</span> <span class="m">11</span>:33 pub
+-rw-r--r--    <span class="m">1</span> <span class="m">0</span>        <span class="m">0</span>               <span class="m">0</span> Jan <span class="m">25</span> <span class="m">11</span>:12 test.txt
+<span class="m">226</span> Directory send OK.
+ftp&gt; <span class="nb">cd</span> pub             <span class="c1"># 进入pub目录</span>
+<span class="m">250</span> Directory successfully changed.
+ftp&gt; ls
+<span class="m">200</span> PORT <span class="nb">command</span> successful. Consider using PASV.
+<span class="m">150</span> Here comes the directory listing.
+<span class="m">226</span> Directory send OK.
+ftp&gt; mkdir testdir      <span class="c1"># 文件创建成功</span>
+<span class="m">257</span> <span class="s2">&quot;/pub/testdir&quot;</span> created
+ftp&gt; put zabbix-3.0.tar.gz  <span class="c1"># 可以上传文件</span>
+local: zabbix-3.0.tar.gz remote: zabbix-3.0.tar.gz
+<span class="m">200</span> PORT <span class="nb">command</span> successful. Consider using PASV.
+<span class="m">150</span> Ok to send data.
+<span class="m">226</span> Transfer complete.
+<span class="m">15653160</span> bytes sent <span class="k">in</span> <span class="m">0</span>.10 secs <span class="o">(</span><span class="m">143</span>.7224 MB/s<span class="o">)</span>
+ftp&gt; ls
+<span class="m">200</span> PORT <span class="nb">command</span> successful. Consider using PASV.
+<span class="m">150</span> Here comes the directory listing.
+drwx------    <span class="m">2</span> <span class="m">105</span>      <span class="m">112</span>          <span class="m">4096</span> Jan <span class="m">25</span> <span class="m">11</span>:36 testdir
+-rw-------    <span class="m">1</span> <span class="m">105</span>      <span class="m">112</span>      <span class="m">15653160</span> Jan <span class="m">25</span> <span class="m">11</span>:42 zabbix-3.0.tar.gz
+<span class="m">226</span> Directory send OK.
+</code></pre></div>
+</td></tr></table>
+<h4 id="2_2">2. 系统用户<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h4>
+<h5 id="1_2">1. 系统用户登陆<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h5>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>shuowei@gaopeng:~$ ftp <span class="m">172</span>.16.10.101
+Connected to <span class="m">172</span>.16.10.101.
+<span class="m">220</span> <span class="o">(</span>vsFTPd <span class="m">3</span>.0.2<span class="o">)</span>
+Name <span class="o">(</span><span class="m">172</span>.16.10.101:shuowei<span class="o">)</span>: ubuntu    <span class="c1"># 系统用户名</span>
+<span class="m">331</span> Please specify the password.
+Password:                               <span class="c1"># 系统用户的密码</span>
+<span class="m">230</span> Login successful.
+Remote system <span class="nb">type</span> is UNIX.
+Using binary mode to transfer files.
+ftp&gt; ls
+<span class="m">200</span> PORT <span class="nb">command</span> successful. Consider using PASV.
+<span class="m">150</span> Here comes the directory listing.
+-rw-r--r--    <span class="m">1</span> <span class="m">1000</span>     <span class="m">1000</span>       <span class="m">111462</span> Jan <span class="m">25</span> <span class="m">10</span>:30 vsftpd_3.0.2-1ubuntu2.14.04.1_amd64.deb
+<span class="m">226</span> Directory send OK.
+ftp&gt; <span class="nb">pwd</span>
+<span class="m">257</span> <span class="s2">&quot;/home/ubuntu&quot;</span>  <span class="c1"># 登陆后在自己的家目录</span>
+ftp&gt; get vsftpd_3.0.2-1ubuntu2.14.04.1_amd64.deb# 有下载的权限
+local: vsftpd_3.0.2-1ubuntu2.14.04.1_amd64.deb remote: vsftpd_3.0.2-1ubuntu2.14.04.1_amd64.deb
+<span class="m">200</span> PORT <span class="nb">command</span> successful. Consider using PASV.
+<span class="m">150</span> Opening BINARY mode data connection <span class="k">for</span> vsftpd_3.0.2-1ubuntu2.14.04.1_amd64.deb <span class="o">(</span><span class="m">111462</span> bytes<span class="o">)</span>.
+<span class="m">226</span> Transfer complete.
+<span class="m">111462</span> bytes received <span class="k">in</span> <span class="m">0</span>.00 secs <span class="o">(</span><span class="m">52</span>.1582 MB/s<span class="o">)</span>
+ftp&gt; delete vsftpd_3.0.2-1ubuntu2.14.04.1_amd64.deb <span class="c1"># 没有写的权限　需要开启write_enable=YES</span>
+<span class="m">550</span> Permission denied.
+</code></pre></div>
+</td></tr></table>
+<h4 id="3_2">3.虚拟用户<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h4>
+<p>VSFTP 一个称为安全的保证是采用了虚拟用户的认证方式，它靠对 /etc/pam.d/ 目录下指定的一个认证文件对用户进行认证，认证成功后再把虚拟用户映射为本地用户，该本地用户由服务器配置文件里的语句 ftp_username 的值指定。使用虚拟用户认证，则原有系统账户将不再可用。</p>
+<p>所有虚拟用户会统一映射为一个指定的系统普通账号：访问共享位置，即为此系统普通用户的家目录，当然每个虚拟用户也可被赋予不同的访问权限，通过匿名用户的权限控制参数进行指定</p>
+<p>为了实现虚拟用户我们需要准备的环境</p>
+<ol>
+<li>一个不可登陆的系统账户，并为这个系统创建一个家目录。虚拟账户就在这个家目录里活动。</li>
+<li>创建虚拟账户名单，并为这些用户创建一个认证数据库</li>
+</ol>
+<h5 id="31">3.1 创建虚拟用户<a class="headerlink" href="#31" title="Permanent link">&para;</a></h5>
+<h6 id="311">3.1.１. 创建本地系统用户<a class="headerlink" href="#311" title="Permanent link">&para;</a></h6>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>$ sudo mkdir /data
+$ sudo useradd -m  -d /data/ftp -s /bin/false  ftpadmin
+$ sudo chwon -R  ftpadmin /data/ftp
+</code></pre></div>
+</td></tr></table>
+<h6 id="312">3.1.2. 建立虚拟账户名单<a class="headerlink" href="#312" title="Permanent link">&para;</a></h6>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>ubuntu@node1:~$ sudo mkdir /etc/vsftpd/
+ubuntu@node1:~$ sudo vim /etc/vsftpd/ftpusers.txt
+jdyyy
+<span class="m">123456</span>
+yuanzhi
+<span class="m">123456</span>
+</code></pre></div>
+</td></tr></table>
+<h6 id="313">3.1.３.生成虚拟账户的数据库<a class="headerlink" href="#313" title="Permanent link">&para;</a></h6>
+<p>创建数据库文件需要安装db-util</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>$ sudo dpkg -i db5.3-util_5.3.28-3ubuntu3.1_amd64.deb  db-util_1%3a5.3.21~exp1ubuntu1_all.deb
+</code></pre></div>
+</td></tr></table>
+<p>生成认证数据库文件</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>ubuntu@node1:~$ sudo db_load -T -t <span class="nb">hash</span> -f /etc/vsftpd/ftpusers.txt  /etc/vsftpd/ftpusers.db
+<span class="c1"># -T: 允许使用文本文件信息加载到数据库中</span>
+<span class="c1"># -t : 指定加密算法</span>
+<span class="c1"># -f : 指定文件</span>
+ubuntu@node1:~$ sudo chmod  <span class="m">600</span> /etc/vsftpd/ftpusers.db
+</code></pre></div>
+</td></tr></table>
+<p>创建数据库的pam文件</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1"># 备份原来的pam文件</span>
+$ sudo cp /etc/pam.d/vsftpd  /etc/pam.d/vsftpd.bak
+<span class="c1"># 拷贝pam模板文件到/etc/pam.d/</span>
+$ sudo cp /usr/share/doc/vsftpd/examples/VIRTUAL_USERS/vsftpd.pam /etc/pam.d/vsftpd
+<span class="c1"># 编译新的pam文件</span>
+<span class="c1"># 注意pam_userdb.so的位置，模板中/lib/security/pam_userdb.so是找不到的</span>
+<span class="c1"># 根据系统的情况改，db=/etc/vsftpd/ftpusers ftpuser是认证数据库文件的文件名，这里不需要加后缀</span>
+$ sudo vim /etc/pam.d/vsftpd
+auth required /lib/x86_64-linux-gnu/security/pam_userdb.so <span class="nv">db</span><span class="o">=</span>/etc/vsftpd/ftpusers
+account required /lib/x86_64-linux-gnu/security/pam_userdb.so <span class="nv">db</span><span class="o">=</span>/etc/vsftpd/ftpusers
+</code></pre></div>
+</td></tr></table>
+<h6 id="314">3.1.4.修改配置文件<a class="headerlink" href="#314" title="Permanent link">&para;</a></h6>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1"># 激活虚拟用户</span>
+<span class="nv">guest_enable</span><span class="o">=</span>YES
+<span class="c1"># 虚拟用户映射到系统用户的用户名称(系统用户的名称)</span>
+<span class="nv">guest_username</span><span class="o">=</span>ftpadmin
+<span class="c1"># 虚拟用户拥有与系统用户相同的权限</span>
+<span class="nv">virtual_use_local_privs</span><span class="o">=</span>YES
+</code></pre></div>
+</td></tr></table>
+<h6 id="315">3.1.5.重启服务<a class="headerlink" href="#315" title="Permanent link">&para;</a></h6>
+<p>异常处理</p>
+<p>如果配置文件中没有加：virtual_use_local_privs=YES</p>
+<p>登陆报错：500 OOPS: vsftpd: refusing to run with writable root inside chroot()</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>shuowei@gaopeng:~$ ftp <span class="m">172</span>.16.10.101
+Connected to <span class="m">172</span>.16.10.101.
+<span class="m">220</span> <span class="o">(</span>vsFTPd <span class="m">3</span>.0.2<span class="o">)</span>
+Name <span class="o">(</span><span class="m">172</span>.16.10.101:shuowei<span class="o">)</span>: jdyyy
+<span class="m">331</span> Please specify the password.
+Password:
+<span class="m">500</span> OOPS: vsftpd: refusing to run with writable root inside chroot<span class="o">()</span>
+Login failed.
+ftp&gt;
+</code></pre></div>
+</td></tr></table>
+<p>去除系统用户家目录写权限</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>$ sudo chmod a-w /data/ftp/
+</code></pre></div>
+</td></tr></table>
+<p>但是又没有写的权限了。</p>
+<h6 id="316">3.1.6. 最终配置<a class="headerlink" href="#316" title="Permanent link">&para;</a></h6>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nv">listen</span><span class="o">=</span>YES
+<span class="nv">anonymous_enable</span><span class="o">=</span>NO
+<span class="nv">local_enable</span><span class="o">=</span>YES
+<span class="nv">write_enable</span><span class="o">=</span>YES
+<span class="nv">dirmessage_enable</span><span class="o">=</span>YES
+<span class="nv">use_localtime</span><span class="o">=</span>YES
+<span class="nv">xferlog_enable</span><span class="o">=</span>YES
+<span class="nv">connect_from_port_20</span><span class="o">=</span>YES
+<span class="nv">xferlog_file</span><span class="o">=</span>/var/log/vsftpd.log
+<span class="nv">secure_chroot_dir</span><span class="o">=</span>/var/run/vsftpd/empty
+<span class="nv">pam_service_name</span><span class="o">=</span>vsftpd
+<span class="nv">rsa_cert_file</span><span class="o">=</span>/etc/ssl/certs/ssl-cert-snakeoil.pem
+<span class="nv">rsa_private_key_file</span><span class="o">=</span>/etc/ssl/private/ssl-cert-snakeoil.key
+<span class="nv">guest_enable</span><span class="o">=</span>YES
+<span class="nv">guest_username</span><span class="o">=</span>ftpadmin
+<span class="nv">virtual_use_local_privs</span><span class="o">=</span>YES
+</code></pre></div>
+</td></tr></table>
+<p>这样虚拟用户读写删权限都有</p>
+<h5 id="32">3.2. 实现虚拟用户不同权限<a class="headerlink" href="#32" title="Permanent link">&para;</a></h5>
+<h6 id="321-ftp">3.2.1 修改FTP主配置文件<a class="headerlink" href="#321-ftp" title="Permanent link">&para;</a></h6>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>$ sudo vim /etc/vsftpd.conf
+<span class="nv">user_config_dir</span><span class="o">=</span>/etc/vsftpd_user_conf
+</code></pre></div>
+</td></tr></table>
+<h6 id="322-1">3.2.2 给每个虚拟用户创建一个独立的权限配置文件-版本1<a class="headerlink" href="#322-1" title="Permanent link">&para;</a></h6>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>$ sudo mkdir /data/ftp/jdyyy
+$ sudo mkdir /etc/vsftpd_user_conf
+$ sudo vim /etc/vsftpd_user_conf/jdyyy
+<span class="c1"># 只有上传权限，没有下载权限</span>
+<span class="nv">write_enable</span><span class="o">=</span>YES
+<span class="nv">virtual_use_local_privs</span><span class="o">=</span>NO
+<span class="nv">anon_upload_enable</span><span class="o">=</span>YES
+<span class="nv">anon_world_readable_only</span><span class="o">=</span>YES
+<span class="nv">anon_mkdir_write_enable</span><span class="o">=</span>YES
+<span class="nv">anon_other_write_enable</span><span class="o">=</span>NO
+
+$ sudo vim /etc/vsftpd_user_conf/yuanzhi
+<span class="c1"># 只有下载权限</span>
+<span class="nv">write_enable</span><span class="o">=</span>NO
+<span class="nv">virtual_use_local_privs</span><span class="o">=</span>NO
+<span class="nv">anon_upload_enable</span><span class="o">=</span>NO
+<span class="nv">anon_world_readable_only</span><span class="o">=</span>NO
+<span class="nv">anon_mkdir_write_enable</span><span class="o">=</span>NO
+<span class="nv">anon_other_write_enable</span><span class="o">=</span>NO
+
+<span class="c1"># 注意ftp文件夹的权限</span>
+ubuntu@node1:/$ ll /data/
+total <span class="m">12</span>
+drwxr-xr-x  <span class="m">3</span> root     root     <span class="m">4096</span> Jan <span class="m">25</span> <span class="m">16</span>:17 ./
+drwxr-xr-x <span class="m">23</span> root     root     <span class="m">4096</span> Jan <span class="m">25</span> <span class="m">16</span>:17 ../
+drwxr-xr-x  <span class="m">4</span> ftpadmin ftpadmin <span class="m">4096</span> Jan <span class="m">25</span> <span class="m">17</span>:50 ftp/
+<span class="c1"># 主配置文件</span>
+ubuntu@node1:/$ grep -Ev <span class="s2">&quot;(^#|^</span>$<span class="s2">)&quot;</span> /etc/vsftpd.conf  
+<span class="nv">listen</span><span class="o">=</span>YES
+<span class="nv">anonymous_enable</span><span class="o">=</span>NO
+<span class="nv">local_enable</span><span class="o">=</span>YES
+<span class="nv">dirmessage_enable</span><span class="o">=</span>YES
+<span class="nv">use_localtime</span><span class="o">=</span>YES
+<span class="nv">xferlog_enable</span><span class="o">=</span>YES
+<span class="nv">connect_from_port_20</span><span class="o">=</span>YES
+<span class="nv">xferlog_file</span><span class="o">=</span>/var/log/vsftpd.log
+<span class="nv">chroot_local_user</span><span class="o">=</span>YES
+<span class="nv">secure_chroot_dir</span><span class="o">=</span>/var/run/vsftpd/empty
+<span class="nv">pam_service_name</span><span class="o">=</span>vsftpd
+<span class="nv">rsa_cert_file</span><span class="o">=</span>/etc/ssl/certs/ssl-cert-snakeoil.pem
+<span class="nv">rsa_private_key_file</span><span class="o">=</span>/etc/ssl/private/ssl-cert-snakeoil.key
+<span class="nv">guest_enable</span><span class="o">=</span>YES
+<span class="nv">guest_username</span><span class="o">=</span>ftpadmin
+<span class="nv">virtual_use_local_privs</span><span class="o">=</span>YES
+<span class="nv">allow_writeable_chroot</span><span class="o">=</span>YES
+<span class="nv">user_config_dir</span><span class="o">=</span>/etc/vsftpd_user_conf
+</code></pre></div>
+</td></tr></table>
+<h6 id="323-2">3.2.3 给每个虚拟用户创建一个独立的权限配置文件-版本2<a class="headerlink" href="#323-2" title="Permanent link">&para;</a></h6>
+<table>
+<thead>
+<tr>
+<th>权限</th>
+<th>upload</th>
+<th>download</th>
+<th>admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>下载</td>
+<td>-</td>
+<td>+</td>
+<td>+</td>
+</tr>
+<tr>
+<td>上传</td>
+<td>+</td>
+<td>-</td>
+<td>+</td>
+</tr>
+<tr>
+<td>创建目录</td>
+<td>+</td>
+<td>-</td>
+<td>+</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>-</td>
+<td>-</td>
+<td>+</td>
+</tr>
+</tbody>
+</table>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>root@node1:~# ls -ld /data/ftp/*
+drwxr-xr-x <span class="m">2</span> ftpadmin ftpadmin <span class="m">4096</span> Jan <span class="m">28</span> <span class="m">18</span>:50 /data/ftp/download
+drwxr-xr-x <span class="m">3</span> ftpadmin ftpadmin <span class="m">4096</span> Jan <span class="m">28</span> <span class="m">18</span>:54 /data/ftp/upload
+
+vsftpd服务的主配置文件
+ubuntu@node1:~$ grep -Ev <span class="s2">&quot;(^#|^</span>$<span class="s2">)&quot;</span> /etc/vsftpd.conf 
+<span class="nv">listen</span><span class="o">=</span>YES
+<span class="nv">anonymous_enable</span><span class="o">=</span>NO
+<span class="nv">local_enable</span><span class="o">=</span>YES
+<span class="nv">dirmessage_enable</span><span class="o">=</span>YES
+<span class="nv">use_localtime</span><span class="o">=</span>YES
+<span class="nv">xferlog_enable</span><span class="o">=</span>YES
+<span class="nv">connect_from_port_20</span><span class="o">=</span>YES
+<span class="nv">xferlog_file</span><span class="o">=</span>/var/log/vsftpd.log
+<span class="nv">chroot_local_user</span><span class="o">=</span>YES
+<span class="nv">secure_chroot_dir</span><span class="o">=</span>/var/run/vsftpd/empty
+<span class="nv">pam_service_name</span><span class="o">=</span>vsftpd
+<span class="nv">rsa_cert_file</span><span class="o">=</span>/etc/ssl/certs/ssl-cert-snakeoil.pem
+<span class="nv">rsa_private_key_file</span><span class="o">=</span>/etc/ssl/private/ssl-cert-snakeoil.key
+<span class="nv">guest_enable</span><span class="o">=</span>YES
+<span class="nv">guest_username</span><span class="o">=</span>ftpadmin
+<span class="nv">allow_writeable_chroot</span><span class="o">=</span>YES
+<span class="nv">user_config_dir</span><span class="o">=</span>/etc/vsftpd_user_conf
+</code></pre></div>
+</td></tr></table>
+<p>创建不同用户各自的的配置文件</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>root@node1:~# ls /etc/vsftpd_user_conf/
+admin  download  upload
+
+ubuntu@node1:~$ cat /etc/vsftpd_user_conf/download 
+<span class="nv">write_enable</span><span class="o">=</span>NO
+<span class="nv">anon_upload_enable</span><span class="o">=</span>NO
+<span class="nv">anon_world_readable_only</span><span class="o">=</span>NO
+<span class="nv">anon_mkdir_write_enable</span><span class="o">=</span>NO
+<span class="nv">anon_other_write_enable</span><span class="o">=</span>NO
+<span class="nv">local_root</span><span class="o">=</span>/data/ftp/download
+
+ubuntu@node1:~$ cat /etc/vsftpd_user_conf/upload 
+<span class="nv">write_enable</span><span class="o">=</span>YES
+<span class="nv">anon_upload_enable</span><span class="o">=</span>YES
+<span class="nv">anon_world_readable_only</span><span class="o">=</span>YES
+<span class="nv">anon_mkdir_write_enable</span><span class="o">=</span>YES
+<span class="nv">anon_other_write_enable</span><span class="o">=</span>NO
+<span class="nv">local_root</span><span class="o">=</span>/data/ftp/upload
+
+
+ubuntu@node1:~$ cat /etc/vsftpd_user_conf/admin
+<span class="nv">write_enable</span><span class="o">=</span>YES
+<span class="nv">anon_upload_enable</span><span class="o">=</span>YES
+<span class="nv">anon_world_readable_only</span><span class="o">=</span>NO
+<span class="nv">anon_mkdir_write_enable</span><span class="o">=</span>YES
+<span class="nv">anon_other_write_enable</span><span class="o">=</span>YES
+</code></pre></div>
+</td></tr></table>
+<p>生成用户数据库文件</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>ubuntu@node1:~$ cat  /etc/vsftpd/ftpusers.txt upload
+<span class="m">123456</span>
+download
+<span class="m">123456</span>
+admin
+admin
+ubuntu@node1:~$ sudo db_load -T -t <span class="nb">hash</span> -f /etc/vsftpd/ftpusers.txt  /etc/vsftpd/ftpusers.db
+</code></pre></div>
+</td></tr></table>
+<p>重启服务</p>
+<h2 id="ssh">二、SSH<a class="headerlink" href="#ssh" title="Permanent link">&para;</a></h2>
+<h3 id="1_3">1. 执行命令<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h3>
+<h4 id="1_4">1. 执行单条命令<a class="headerlink" href="#1_4" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    ubuntu@node1:~$ ssh ubuntu@172.16.10.102 hostname
+    ubuntu@172.16.10.102<span class="err">&#39;</span>s password: 
+    node2
+</code></pre></div>
+</td></tr></table>
+<h4 id="2_3">2. 执行带参数的命令<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    ssh ubuntu@172.16.10.102 grep root /etc/passwd
+    ubuntu@172.16.10.102<span class="err">&#39;</span>s password: 
+    root:x:0:0:root:/root:/bin/bash
+</code></pre></div>
+</td></tr></table>
+<h4 id="3_3">3. 执行多条命令<a class="headerlink" href="#3_3" title="Permanent link">&para;</a></h4>
+<p>执行多条命令时，只要用分号把命令分割开就可以了，但是要把多条命令用引号引起来，否则分号后面的命令就是在本地执行的。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="c1"># 不加分号</span>
+    ubuntu@node1:~$ ssh ubuntu@172.16.10.102 cat /etc/hostname<span class="p">;</span>hostname -I
+    node2
+    <span class="m">172</span>.16.10.101
+</code></pre></div>
+</td></tr></table>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="c1"># 加分号</span>
+    ubuntu@node1:~$ ssh ubuntu@172.16.10.102 <span class="s2">&quot;cat /etc/hostname;hostname -I&quot;</span>
+    node2
+    <span class="m">172</span>.16.10.102
+</code></pre></div>
+</td></tr></table>
+<h4 id="4_1">4. 执行多行命令<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h4>
+<p>用单引号或双引号开头，然后写上几行命令，最后再用相同的引号来结束。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    ubuntu@node1:~$ ssh   ubuntu@172.16.10.102 <span class="s2">&quot;</span>
+<span class="s2">    &gt; hostname -I</span>
+<span class="s2">    &gt; uname -r</span>
+<span class="s2">    &gt; uptime</span>
+<span class="s2">    &gt; &quot;</span>
+    ubuntu@172.16.10.102<span class="err">&#39;</span>s password: 
+    <span class="m">172</span>.16.10.102 
+    <span class="m">4</span>.4.0-31-generic
+    <span class="m">15</span>:39:13 up  <span class="m">6</span>:28,  <span class="m">2</span> users,  load average: <span class="m">0</span>.00, <span class="m">0</span>.00, <span class="m">0</span>.00
+</code></pre></div>
+</td></tr></table>
+<h4 id="5">5. 执行交互命令<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    ubuntu@node1:~$ ssh ubuntu@172.16.10.102 <span class="s2">&quot;sudo apt install nginx&quot;</span>
+    ubuntu@172.16.10.102<span class="err">&#39;</span>s password: 
+    sudo: no tty present and no askpass program specified
+</code></pre></div>
+</td></tr></table>
+<p>默认情况下，当你执行不带命令的 ssh 连接时，会为你分配一个 TTY。因为此时你应该是想要运行一个 shell 会话。</p>
+<p>但是当你通过 ssh 在远程主机上执行命令时，并不会为这个远程会话分配 TTY。此时 ssh 会立即退出远程主机，所以需要交互的命令也随之结束。</p>
+<p>这时需要用 -t 参数显式的告诉 ssh，我们需要一个 TTY 远程 shell 进行交互，添加 -t 参数后，ssh 会保持登录状态，直到你退出需要交互的命令。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    ubuntu@node1:~$ ssh -t  ubuntu@172.16.10.102 <span class="s2">&quot;sudo apt install nginx&quot;</span>
+    ubuntu@172.16.10.102<span class="err">&#39;</span>s password:
+    <span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> ubuntu:
+    Reading package lists... Done
+    Building dependency tree
+    Reading state information... Done
+    The following extra packages will be installed:
+    fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+    libjpeg-turbo8 libjpeg8 libtiff5 libvpx1 libxpm4 libxslt1.1 nginx-common
+    nginx-core
+    Suggested packages:
+    libgd-tools fcgiwrap nginx-doc
+    The following NEW packages will be installed:
+    fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+    libjpeg-turbo8 libjpeg8 libtiff5 libvpx1 libxpm4 libxslt1.1 nginx
+    nginx-common nginx-core
+    <span class="m">0</span> upgraded, <span class="m">14</span> newly installed, <span class="m">0</span> to remove and <span class="m">8</span> not upgraded.
+    Need to get <span class="m">2</span>,681 kB of archives.
+    After this operation, <span class="m">9</span>,073 kB of additional disk space will be used.
+    Do you want to <span class="k">continue</span>? <span class="o">[</span>Y/n<span class="o">]</span> n
+    Abort.
+    Connection to <span class="m">172</span>.16.10.102 closed.
+</code></pre></div>
+</td></tr></table>
+<h4 id="6">6. 使用本地变量<a class="headerlink" href="#6" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    ubuntu@node1:~$ <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span>
+    ubuntu@node1:~$ ssh ubuntu@172.16.10.102 <span class="s2">&quot;echo &quot;</span>Install <span class="nv">$name</span><span class="s2">&quot;&quot;</span>
+    ubuntu@172.16.10.102<span class="err">&#39;</span>s password: 
+    Install nginx
+</code></pre></div>
+</td></tr></table>
+<h3 id="2-ssh">2. ssh执行脚本<a class="headerlink" href="#2-ssh" title="Permanent link">&para;</a></h3>
+<h4 id="1_5">1. 执行远程不带参数的脚本<a class="headerlink" href="#1_5" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="c1">#远程脚本文件内容</span>
+    ubuntu@node2:~$ cat hello.sh
+    <span class="c1">#!/bin/bash</span>
+    <span class="nb">echo</span> <span class="s2">&quot;hello world&quot;</span>
+</code></pre></div>
+</td></tr></table>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    ubuntu@node1:~$ ssh ubuntu@172.16.10.102 <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/hello.sh&quot;</span>
+    ubuntu@172.16.10.102<span class="err">&#39;</span>s password:
+    hello world
+</code></pre></div>
+</td></tr></table>
+<h4 id="2_4">2. 执行远程需要参数的脚本<a class="headerlink" href="#2_4" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="c1"># 远程脚本文件内容</span>
+    ubuntu@node2:~$ cat script.sh
+    <span class="c1">#!/bin/bash</span>
+    <span class="nv">name</span><span class="o">=</span><span class="nv">$1</span>
+    <span class="nb">echo</span> <span class="s2">&quot;install </span><span class="nv">$name</span><span class="s2">&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;installed succeed!&quot;</span>
+</code></pre></div>
+</td></tr></table>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    ubuntu@node1:~$ <span class="nv">name</span><span class="o">=</span>nginx
+    ubuntu@node1:~$ ssh ubuntu@172.16.10.102   <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/script.sh </span><span class="nv">$name</span><span class="s2">&quot;</span>
+    ubuntu@172.16.10.102<span class="err">&#39;</span>s password:
+    install nginx
+    installed succeed!
+</code></pre></div>
+</td></tr></table>
+<h4 id="3_4">3. 执行本地不带参数的脚本<a class="headerlink" href="#3_4" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    ubuntu@node1:~$ cat hello.sh
+    <span class="c1">#!/bin/bash</span>
+    hostname
+    touch hello.txt
+    ls
+
+    ubuntu@node1:~$ ssh ubuntu@172.16.10.102 &lt; hello.sh
+    Pseudo-terminal will not be allocated because stdin is not a terminal.
+    ubuntu@172.16.10.102<span class="err">&#39;</span>s password:
+    node2
+    hello.txt
+</code></pre></div>
+</td></tr></table>
+<h4 id="4_2">4. 执行本地需要参数的脚本文件<a class="headerlink" href="#4_2" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="c1"># 脚本内容，需要传入一个参数</span>
+    ubuntu@node1:~$ cat script.sh
+    <span class="c1">#!/bin/bash</span>
+    <span class="nv">name</span><span class="o">=</span><span class="nv">$1</span>
+    <span class="nb">echo</span> <span class="s2">&quot;install </span><span class="nv">$name</span><span class="s2">&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;installed succeed!&quot;</span>
+    <span class="c1"># 需要加上bash -s</span>
+    ubuntu@node1:~$ ssh ubuntu@172.16.10.102 <span class="s2">&quot;bash -s&quot;</span> &lt; script.sh nginx
+    ubuntu@172.16.10.102<span class="err">&#39;</span>s password:
+    install nginx
+    installed succeed!
+</code></pre></div>
+</td></tr></table>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="mailto:sufangmu8377@163.com" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2 12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/sufangmu" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "header.autohide"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.409db549.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.756773cc.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+    
+  </body>
+</html>

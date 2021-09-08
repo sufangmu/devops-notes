@@ -1,0 +1,4315 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="苏方木的笔记">
+      
+      
+      
+        <meta name="author" content="苏方木">
+      
+      
+        <link rel="canonical" href="https://github.com/sufangmu/notes/linux/vim/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.6">
+    
+    
+      
+        <title>VIM - 苏方木的笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.802231af.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,700%7CUbuntu+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Ubuntu";--md-code-font-family:"Ubuntu Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vim" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="苏方木的笔记" class="md-header__button md-logo" aria-label="苏方木的笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            苏方木的笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              VIM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      首页
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../command-line/" class="md-tabs__link md-tabs__link--active">
+        Linux
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../databases/MySQL/%E5%AE%89%E8%A3%85/" class="md-tabs__link">
+        数据库
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../web/%E5%8D%8F%E8%AE%AE/HTTP/" class="md-tabs__link">
+        前端
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/01-python%E7%AE%80%E4%BB%8B/" class="md-tabs__link">
+        编程语言
+      </a>
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Virtualization/Docker/%E5%AE%89%E8%A3%85/" class="md-tabs__link">
+        虚拟化
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../CICD/Git/Git/" class="md-tabs__link">
+        CI&CD
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../resource/docs/" class="md-tabs__link">
+        资源
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../music/xiao/" class="md-tabs__link">
+        音乐
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="苏方木的笔记" class="md-nav__button md-logo" aria-label="苏方木的笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    苏方木的笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        首页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../command-line/" class="md-nav__link">
+        命令行
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../grep_sed_awk/" class="md-nav__link">
+        文本处理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ShellScript/" class="md-nav__link">
+        ShellScript
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          VIM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        VIM
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vim_1" class="md-nav__link">
+    一、VIM模式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    二、模式切换
+  </a>
+  
+    <nav class="md-nav" aria-label="二、模式切换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 普通模式切换到插入模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2.普通模式切换到命令行模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3.普通模式切换到可视模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4.切换到普通模式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    三、退出
+  </a>
+  
+    <nav class="md-nav" aria-label="三、退出">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    1. 使用命令行模式退出
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 普通模式下退出
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    三、游标移动
+  </a>
+  
+    <nav class="md-nav" aria-label="三、游标移动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    1. 在普通模式下移动
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 在普通模式下移动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    1. 普通移动
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    2. 光标跳转
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 光标跳转">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_4" class="md-nav__link">
+    1. 行间跳转
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    2. 行内跳转
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    3.按句子或段落移动
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    3. 在屏幕间移动
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_4" class="md-nav__link">
+    2.在插入模式下移动
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    四、删除文本
+  </a>
+  
+    <nav class="md-nav" aria-label="四、删除文本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_5" class="md-nav__link">
+    1. 在普通模式下删除
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_5" class="md-nav__link">
+    2.在插入模式下删除
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yank" class="md-nav__link">
+    五、复制(yank）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    六、粘贴
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    七、替换
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    八、撤销
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    九、调整文本位置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    十、查找
+  </a>
+  
+    <nav class="md-nav" aria-label="十、查找">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_6" class="md-nav__link">
+    1. 快速查找
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_6" class="md-nav__link">
+    2. 高级查找
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    十一、多文件编辑
+  </a>
+  
+    <nav class="md-nav" aria-label="十一、多文件编辑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-vim" class="md-nav__link">
+    1. 使用vim编辑多个文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-vim" class="md-nav__link">
+    2. 进入vim后打开新文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    十三、视图操作
+  </a>
+  
+    <nav class="md-nav" aria-label="十三、视图操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_7" class="md-nav__link">
+    1. 命令行模式下打开视窗
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_7" class="md-nav__link">
+    2. 普通模式下打开视窗
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tab" class="md-nav__link">
+    十四、分页(tab)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    十五、配置
+  </a>
+  
+    <nav class="md-nav" aria-label="十五、配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_8" class="md-nav__link">
+    1. 自动添加文件头部注释信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_8" class="md-nav__link">
+    2. 缩进配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_3" class="md-nav__link">
+    3. 补齐括号和引号
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-80" class="md-nav__link">
+    4. 在每行第80个字符处显示竖线, 颜色是淡蓝色
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 其他
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmux" class="md-nav__link">
+    十六、tmux
+  </a>
+  
+    <nav class="md-nav" aria-label="十六、tmux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_9" class="md-nav__link">
+    1. 会话管理
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 会话管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_10" class="md-nav__link">
+    1. 新建会话
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_9" class="md-nav__link">
+    2. 查看所有会话
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_4" class="md-nav__link">
+    3. 登陆会话
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    4. 退出会话
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5_1" class="md-nav__link">
+    5. 退出并删除会话
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 删除会话
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7. 重命名会话
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_10" class="md-nav__link">
+    2. 系统操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_5" class="md-nav__link">
+    3. 窗口操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_2" class="md-nav__link">
+    4. 面板操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5_2" class="md-nav__link">
+    5. 修改配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-tmux" class="md-nav__link">
+    6. 在tmux中粘贴复制
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    附：
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        网络
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="网络" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          网络
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/TCP/" class="md-nav__link">
+        TCP/IP
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/iptables/" class="md-nav__link">
+        Iptables
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/" class="md-nav__link">
+        文档
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        数据库
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="数据库" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          数据库
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      <label class="md-nav__link" for="__nav_3_1">
+        mysql
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="mysql" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          mysql
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        安装
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        用户管理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        数据类型和运算符
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/SQL/" class="md-nav__link">
+        SQL
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        存储过程和函数
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/%E7%B4%A2%E5%BC%95/" class="md-nav__link">
+        索引
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../databases/MySQL/%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92/" class="md-nav__link">
+        执行计划
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        前端
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="前端" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          前端
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/%E5%8D%8F%E8%AE%AE/HTTP/" class="md-nav__link">
+        HTTP
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/%E5%8D%8F%E8%AE%AE/RESTful/" class="md-nav__link">
+        RESTful
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/%E8%AF%AD%E8%A8%80/html/" class="md-nav__link">
+        HTML
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/%E8%AF%AD%E8%A8%80/CSS/" class="md-nav__link">
+        CSS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/%E8%AF%AD%E8%A8%80/JavaScript/" class="md-nav__link">
+        JavaScript
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/%E6%A1%86%E6%9E%B6/jQuery/" class="md-nav__link">
+        jQuery
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        编程语言
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="编程语言" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          编程语言
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1" type="checkbox" id="__nav_5_1" >
+      
+      <label class="md-nav__link" for="__nav_5_1">
+        Python
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Python" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1_1" type="checkbox" id="__nav_5_1_1" >
+      
+      <label class="md-nav__link" for="__nav_5_1_1">
+        基础
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基础" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/01-python%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        python简介
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/02-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        基本数据类型
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/03-%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        逻辑控制
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/04-%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        函数
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/05-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" class="md-nav__link">
+        面向对象
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/06-%E5%8C%85%E5%92%8C%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        包和模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/07-%E8%BF%AD%E4%BB%A3%E5%92%8C%E6%8E%A8%E5%AF%BC/" class="md-nav__link">
+        迭代和推导
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/08-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+        文件处理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/09-%E5%BC%82%E5%B8%B8%E4%B8%8E%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        异常处理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/01-%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        内置模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/02-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        并行编程
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/03-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        网络编程
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E5%9F%BA%E7%A1%80/04-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        数据库编程
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1_2" type="checkbox" id="__nav_5_1_2" >
+      
+      <label class="md-nav__link" for="__nav_5_1_2">
+        Django
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Django" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Django
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/install/" class="md-nav__link">
+        安装
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/response/" class="md-nav__link">
+        请求响应三板斧
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/urls/" class="md-nav__link">
+        路由层
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/view/" class="md-nav__link">
+        视图层
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/template/" class="md-nav__link">
+        模板层
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/model/" class="md-nav__link">
+        模型层
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/middleware/" class="md-nav__link">
+        中间件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/forms/" class="md-nav__link">
+        表单
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/auth/" class="md-nav__link">
+        auth模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/cookie%26session/" class="md-nav__link">
+        cookie和session
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Django/admin/" class="md-nav__link">
+        admin
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1_3" type="checkbox" id="__nav_5_1_3" >
+      
+      <label class="md-nav__link" for="__nav_5_1_3">
+        DjangoRESTframework
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="DjangoRESTframework" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          DjangoRESTframework
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/install/" class="md-nav__link">
+        安装
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        序列化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94/" class="md-nav__link">
+        请求和响应
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E8%A7%86%E5%9B%BE/" class="md-nav__link">
+        视图
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        路由
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E8%AE%A4%E8%AF%81%E3%80%81%E6%9D%83%E9%99%90%E5%92%8C%E9%A2%91%E7%8E%87/" class="md-nav__link">
+        认证、权限和频率
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E8%BF%87%E6%BB%A4%E3%80%81%E6%8E%92%E5%BA%8F%E3%80%81%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="md-nav__link">
+        过滤、排序、异常处理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/DjangoRESTframework/%E8%87%AA%E5%AE%9A%E4%B9%89response/" class="md-nav__link">
+        自定义response
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1_4" type="checkbox" id="__nav_5_1_4" >
+      
+      <label class="md-nav__link" for="__nav_5_1_4">
+        Flask
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Flask" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          Flask
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Flask/install/" class="md-nav__link">
+        简介与安装
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/Jinja2/" class="md-nav__link">
+        Jinja2
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/python/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        数据结构和算法
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" type="checkbox" id="__nav_5_2" >
+      
+      <label class="md-nav__link" for="__nav_5_2">
+        Java
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Java" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Java
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2_1" type="checkbox" id="__nav_5_2_1" >
+      
+      <label class="md-nav__link" for="__nav_5_2_1">
+        基础
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基础" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        语法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        数组
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89/" class="md-nav__link">
+        面向对象（一）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%BA%8C%EF%BC%89/" class="md-nav__link">
+        面向对象（二）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%89%EF%BC%89/" class="md-nav__link">
+        面向对象（三）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/java/%E5%9F%BA%E7%A1%80/equals%28%29%E5%92%8C%3D%3D/" class="md-nav__link">
+        equals()和==
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        虚拟化
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="虚拟化" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          虚拟化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Docker
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Docker" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Docker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/Docker/%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        实现
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      <label class="md-nav__link" for="__nav_7">
+        CI&CD
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CI&CD" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          CI&CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" >
+      
+      <label class="md-nav__link" for="__nav_7_1">
+        版本控制
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="版本控制" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          版本控制
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CICD/Git/Git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      <label class="md-nav__link" for="__nav_7_2">
+        Jenkins
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Jenkins" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Jenkins
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CICD/Jenkins/jenkins-pipeline-syntax/" class="md-nav__link">
+        pipeline-syntax
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CICD/Jenkins/jenkinsfile/" class="md-nav__link">
+        jenkinsfile
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      <label class="md-nav__link" for="__nav_7_3">
+        Ansible
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Ansible" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CICD/Ansible/ansible/" class="md-nav__link">
+        Ansible基础
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      <label class="md-nav__link" for="__nav_7_4">
+        Jenkins
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Jenkins" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Jenkins
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CICD/Jenkins/Jenkins%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        Jenkins基础
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      <label class="md-nav__link" for="__nav_8">
+        资源
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="资源" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          资源
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resource/docs/" class="md-nav__link">
+        资源
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      <label class="md-nav__link" for="__nav_9">
+        音乐
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="音乐" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          音乐
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../music/xiao/" class="md-nav__link">
+        箫
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../music/zhudi/" class="md-nav__link">
+        笛
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../music/guqin/" class="md-nav__link">
+        古琴
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../music/pipa/" class="md-nav__link">
+        琵琶
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../music/erhu/" class="md-nav__link">
+        二胡
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vim_1" class="md-nav__link">
+    一、VIM模式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    二、模式切换
+  </a>
+  
+    <nav class="md-nav" aria-label="二、模式切换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 普通模式切换到插入模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2.普通模式切换到命令行模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3.普通模式切换到可视模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4.切换到普通模式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    三、退出
+  </a>
+  
+    <nav class="md-nav" aria-label="三、退出">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    1. 使用命令行模式退出
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 普通模式下退出
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    三、游标移动
+  </a>
+  
+    <nav class="md-nav" aria-label="三、游标移动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    1. 在普通模式下移动
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 在普通模式下移动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    1. 普通移动
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    2. 光标跳转
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 光标跳转">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_4" class="md-nav__link">
+    1. 行间跳转
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    2. 行内跳转
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    3.按句子或段落移动
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    3. 在屏幕间移动
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_4" class="md-nav__link">
+    2.在插入模式下移动
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    四、删除文本
+  </a>
+  
+    <nav class="md-nav" aria-label="四、删除文本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_5" class="md-nav__link">
+    1. 在普通模式下删除
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_5" class="md-nav__link">
+    2.在插入模式下删除
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yank" class="md-nav__link">
+    五、复制(yank）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    六、粘贴
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    七、替换
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    八、撤销
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    九、调整文本位置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    十、查找
+  </a>
+  
+    <nav class="md-nav" aria-label="十、查找">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_6" class="md-nav__link">
+    1. 快速查找
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_6" class="md-nav__link">
+    2. 高级查找
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    十一、多文件编辑
+  </a>
+  
+    <nav class="md-nav" aria-label="十一、多文件编辑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-vim" class="md-nav__link">
+    1. 使用vim编辑多个文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-vim" class="md-nav__link">
+    2. 进入vim后打开新文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    十三、视图操作
+  </a>
+  
+    <nav class="md-nav" aria-label="十三、视图操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_7" class="md-nav__link">
+    1. 命令行模式下打开视窗
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_7" class="md-nav__link">
+    2. 普通模式下打开视窗
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tab" class="md-nav__link">
+    十四、分页(tab)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    十五、配置
+  </a>
+  
+    <nav class="md-nav" aria-label="十五、配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_8" class="md-nav__link">
+    1. 自动添加文件头部注释信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_8" class="md-nav__link">
+    2. 缩进配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_3" class="md-nav__link">
+    3. 补齐括号和引号
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-80" class="md-nav__link">
+    4. 在每行第80个字符处显示竖线, 颜色是淡蓝色
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 其他
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmux" class="md-nav__link">
+    十六、tmux
+  </a>
+  
+    <nav class="md-nav" aria-label="十六、tmux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_9" class="md-nav__link">
+    1. 会话管理
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 会话管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_10" class="md-nav__link">
+    1. 新建会话
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_9" class="md-nav__link">
+    2. 查看所有会话
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_4" class="md-nav__link">
+    3. 登陆会话
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    4. 退出会话
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5_1" class="md-nav__link">
+    5. 退出并删除会话
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 删除会话
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7. 重命名会话
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_10" class="md-nav__link">
+    2. 系统操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_5" class="md-nav__link">
+    3. 窗口操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_2" class="md-nav__link">
+    4. 面板操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5_2" class="md-nav__link">
+    5. 修改配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-tmux" class="md-nav__link">
+    6. 在tmux中粘贴复制
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    附：
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="vim">VIM<a class="headerlink" href="#vim" title="Permanent link">&para;</a></h1>
+<p>Vim是从 vi 发展出来的一个文本编辑器</p>
+<h2 id="vim_1">一、VIM模式<a class="headerlink" href="#vim_1" title="Permanent link">&para;</a></h2>
+<p>6种基本模式</p>
+<ol>
+<li><strong>普通模式（Normal）</strong></li>
+<li><strong>插入模式（INSERT）</strong></li>
+<li><strong>可视模式（VISUAL）</strong></li>
+<li>选择模式（SELECT）</li>
+<li>命令行模式（Command line）</li>
+<li>Ex模式</li>
+</ol>
+<h2 id="_1">二、模式切换<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 普通模式切换到插入模式<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>助记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>i</code></td>
+<td>在当前光标处进行编辑</td>
+<td>insert</td>
+</tr>
+<tr>
+<td><code>I</code></td>
+<td>在行首插入</td>
+<td>Insert</td>
+</tr>
+<tr>
+<td><code>a</code></td>
+<td>在光标后插入编辑</td>
+<td>append</td>
+</tr>
+<tr>
+<td><code>A</code></td>
+<td>在行末插入</td>
+<td>Append</td>
+</tr>
+<tr>
+<td><code>o</code></td>
+<td>在当前行后插入一个新行</td>
+<td>open</td>
+</tr>
+<tr>
+<td><code>O</code></td>
+<td>在当前行前插入一个新行</td>
+<td>Open</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2">2.普通模式切换到命令行模式<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>普通模式下按下<code>:</code></p>
+<h3 id="3">3.普通模式切换到可视模式<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>普通模式下输入</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>v</code></td>
+<td>进入字符选择模式，再次按下后取消选取</td>
+</tr>
+<tr>
+<td><code>V</code></td>
+<td>进入行选择模式，再次按下后取消选取</td>
+</tr>
+<tr>
+<td><code>Ctrl + v</code></td>
+<td>进入区域选择模式，再次按下后取消选取</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4">4.切换到普通模式<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[ESC]</code></td>
+<td>切换到普通模式</td>
+</tr>
+<tr>
+<td><code>Ctrl + c</code></td>
+<td>切换到普通模式</td>
+</tr>
+<tr>
+<td><code>Ctrl + [</code></td>
+<td>切换到普通模式</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">三、退出<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1_1">1. 使用命令行模式退出<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:q</code></td>
+<td>退出</td>
+</tr>
+<tr>
+<td><code>:q!</code></td>
+<td>强制退出</td>
+</tr>
+<tr>
+<td><code>:wq</code></td>
+<td>保存退出</td>
+</tr>
+<tr>
+<td><code>:wq!</code></td>
+<td>强制保存退出</td>
+</tr>
+<tr>
+<td><code>:x</code></td>
+<td>保存并退出</td>
+</tr>
+<tr>
+<td><code>:w &lt;文件路径&gt;</code></td>
+<td>另存为</td>
+</tr>
+<tr>
+<td><code>:saveas &lt;文件路径&gt;</code></td>
+<td>另存为</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2_1">2. 普通模式下退出<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ZZ</code></td>
+<td>保存并退出</td>
+</tr>
+<tr>
+<td><code>ZQ</code></td>
+<td>不保存退出</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">三、游标移动<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="1_2">1. 在普通模式下移动<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<h4 id="1_3">1. 普通移动<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>h</code></td>
+<td>光标左移</td>
+</tr>
+<tr>
+<td><code>j</code></td>
+<td>光标下移</td>
+</tr>
+<tr>
+<td><code>k</code></td>
+<td>光标上移</td>
+</tr>
+<tr>
+<td><code>l</code></td>
+<td>光标右移</td>
+</tr>
+<tr>
+<td><code>{n}h</code></td>
+<td>光标左移n 个位置，n(umber) 指数字</td>
+</tr>
+<tr>
+<td><code>{n}j</code></td>
+<td>光标下移n 个位置，n(umber) 指数字</td>
+</tr>
+<tr>
+<td><code>{n}k</code></td>
+<td>光标上移n 个位置，n(umber) 指数字</td>
+</tr>
+<tr>
+<td><code>{n}l</code></td>
+<td>光标右移n 个位置，n(umber) 指数字</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2_2">2. 光标跳转<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h4>
+<h5 id="1_4">1. 行间跳转<a class="headerlink" href="#1_4" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{n}G</code></td>
+<td>移动到第n行</td>
+</tr>
+<tr>
+<td><code>gg</code></td>
+<td>移动到第一行</td>
+</tr>
+<tr>
+<td><code>G</code></td>
+<td>移动到最后一行</td>
+</tr>
+</tbody>
+</table>
+<p>Ctrl + o: 快速回到上一次(跳转前)光标所在位置</p>
+<h5 id="2_3">2. 行内跳转<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>助记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>w</code></td>
+<td>到下一个单词的开头</td>
+<td>word</td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td>到当前单词的结尾</td>
+<td>end</td>
+</tr>
+<tr>
+<td><code>b</code></td>
+<td>到前一个单词的开头</td>
+<td>back-word</td>
+</tr>
+<tr>
+<td><code>ge</code></td>
+<td>到前一个单词的结尾</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>到行首</td>
+<td></td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>跳到行首开始的第一个非空白字符</td>
+<td></td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>到行尾</td>
+<td></td>
+</tr>
+<tr>
+<td><code>f&lt;字母&gt;</code></td>
+<td>向后搜索&lt;字母&gt;并跳转到第一个匹配的位置(非常实用)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>F&lt;字母&gt;</code></td>
+<td>向前搜索&lt;字母&gt;并跳转到第一个匹配的位置</td>
+<td></td>
+</tr>
+<tr>
+<td><code>t&lt;字母</code></td>
+<td>向后搜索&lt;字母&gt;并跳转到第一个匹配位置之前的一个字母(不常用)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>T&lt;字母&gt;</code></td>
+<td>向前搜索&lt;字母&gt;并跳转到第一个匹配位置之后的一个字母(不常用)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="3_1">3.按句子或段落移动<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>)</code></td>
+<td>向前移动一条句子</td>
+</tr>
+<tr>
+<td><code>}</code></td>
+<td>向前移动一个段落</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3_2">3. 在屏幕间移动<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>H</code></td>
+<td>向上移动一屏</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td>移动到屏幕中间</td>
+</tr>
+<tr>
+<td><code>L</code></td>
+<td>移动到屏幕底端</td>
+</tr>
+<tr>
+<td><code>Ctrl + u</code></td>
+<td>向上移动半屏</td>
+</tr>
+<tr>
+<td><code>Ctrl + d</code></td>
+<td>向下移动半屏</td>
+</tr>
+<tr>
+<td><code>Ctrl + f</code></td>
+<td>下一页</td>
+</tr>
+<tr>
+<td><code>Ctrl + b</code></td>
+<td>上一页</td>
+</tr>
+<tr>
+<td><code>Ctrl + e</code></td>
+<td>向下滚动一行</td>
+</tr>
+<tr>
+<td><code>Ctrl + y</code></td>
+<td>向上滚动一行</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2_4">2.在插入模式下移动<a class="headerlink" href="#2_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>Alt + hjkl</code>进入普通模式移动</li>
+<li>使用键盘上的方向键移动（效率低，不推荐）</li>
+</ol>
+<h2 id="_4">四、删除文本<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="1_5">1. 在普通模式下删除<a class="headerlink" href="#1_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x</code></td>
+<td>删除游标所在的字符</td>
+<td></td>
+</tr>
+<tr>
+<td><code>X</code></td>
+<td>删除游标所在前一个字符</td>
+<td></td>
+</tr>
+<tr>
+<td><code>dd</code></td>
+<td>删除整行</td>
+<td>delete</td>
+</tr>
+<tr>
+<td><code>{n}dd</code></td>
+<td>删除n行</td>
+<td></td>
+</tr>
+<tr>
+<td><code>d{n}w</code></td>
+<td>删除n个单词</td>
+<td></td>
+</tr>
+<tr>
+<td><code>d$ 或 D</code></td>
+<td>删除至行尾</td>
+<td></td>
+</tr>
+<tr>
+<td><code>d^</code></td>
+<td>删除至行首</td>
+<td></td>
+</tr>
+<tr>
+<td><code>dG</code></td>
+<td>删除到文档结尾处</td>
+<td></td>
+</tr>
+<tr>
+<td><code>d1G</code></td>
+<td>删至文档首部</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2_5">2.在插入模式下删除<a class="headerlink" href="#2_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backspace</td>
+<td>删除光标前一个字符</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>删除光标后一个字符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="yank">五、复制(yank）<a class="headerlink" href="#yank" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>y</code></td>
+<td>复制当前选择区域</td>
+</tr>
+<tr>
+<td><code>yy</code> 或 <code>Y</code></td>
+<td>复制游标所在的整行</td>
+</tr>
+<tr>
+<td><code>y^</code> 或 <code>y0</code></td>
+<td>复制至行首，不含光标所在处</td>
+</tr>
+<tr>
+<td><code>y$</code></td>
+<td>复制至行尾，含光标所在处字符。</td>
+</tr>
+<tr>
+<td><code>yw</code></td>
+<td>复制一个单词</td>
+</tr>
+<tr>
+<td><code>y2w</code></td>
+<td>复制两个单词</td>
+</tr>
+<tr>
+<td><code>yG</code></td>
+<td>复制至文本末</td>
+</tr>
+<tr>
+<td><code>y1G</code></td>
+<td>复制至文本开头。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">六、粘贴<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>助记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>p</code></td>
+<td>粘贴至光标后（下）</td>
+<td>paste</td>
+</tr>
+<tr>
+<td><code>P</code></td>
+<td>粘贴至光标前（上）</td>
+<td>paste</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">七、替换<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>在普通模式下使输入</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>助记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>r&lt;待替换字母&gt;</code></td>
+<td>将游标所在字母替换为指定字母</td>
+<td></td>
+</tr>
+<tr>
+<td><code>R</code></td>
+<td>连续替换，直到按下<code>Esc</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>cc</code></td>
+<td>替换整行，即删除游标所在行，并进入插入模式</td>
+<td>change</td>
+</tr>
+<tr>
+<td><code>cw</code></td>
+<td>替换一个单词，即删除一个单词，并进入插入模式</td>
+<td></td>
+</tr>
+<tr>
+<td><code>C</code></td>
+<td>替换游标以后至行末</td>
+<td></td>
+</tr>
+<tr>
+<td><code>~</code></td>
+<td>反转游标所在字母大小写</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_7">八、撤销<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>u{n}</code></td>
+<td>撤销一次或n次操作</td>
+</tr>
+<tr>
+<td><code>U</code></td>
+<td>撤销当前行的所有修改</td>
+</tr>
+<tr>
+<td><code>Ctrl + r</code></td>
+<td>redo，即撤销undo的操作</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_8">九、调整文本位置<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>命令行模式下输入</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:ce</code></td>
+<td>(center)使本行内容居中</td>
+</tr>
+<tr>
+<td><code>:ri</code></td>
+<td>(right)命令使本行文本靠右</td>
+</tr>
+<tr>
+<td><code>:le</code></td>
+<td>(left)命令使本行内容靠左</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_9">十、查找<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="1_6">1. 快速查找<a class="headerlink" href="#1_6" title="Permanent link">&para;</a></h3>
+<p>普通模式下输入</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>?&lt;查找的字符串&gt;</code></td>
+<td>向上查找</td>
+</tr>
+<tr>
+<td><code>/&lt;查找的字符串&gt;</code></td>
+<td>向下查找</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2_6">2. 高级查找<a class="headerlink" href="#2_6" title="Permanent link">&para;</a></h3>
+<p>普通模式下输入</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>向后（下）寻找游标所在处的单词</td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>向前（上）寻找游标所在处的单词</td>
+</tr>
+<tr>
+<td><code>g*</code></td>
+<td>同* ，但部分符合该单词即可</td>
+</tr>
+<tr>
+<td><code>g#</code></td>
+<td>同#，但部分符合该单词即可</td>
+</tr>
+</tbody>
+</table>
+<p>n: 向下继续查找</p>
+<p>N:向上继续查找</p>
+<h2 id="_10">十一、多文件编辑<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="1-vim">1. 使用vim编辑多个文件<a class="headerlink" href="#1-vim" title="Permanent link">&para;</a></h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1"># 使用vim编辑多个文件</span>
+$ vim a.txt b.txt
+</code></pre></div>
+</td></tr></table>
+<p>命令行模式 下输入</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:n</code></td>
+<td>切换到下一个文件，可以加<code>!</code> 强制切换（放弃当前修改）</td>
+</tr>
+<tr>
+<td><code>:N</code></td>
+<td>切换到上一个文件，可以加<code>!</code> 强制切换（放弃当前修改）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-vim">2. 进入vim后打开新文件<a class="headerlink" href="#2-vim" title="Permanent link">&para;</a></h3>
+<p>命令行模式下输入</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:e &lt;文件名&gt;</code></td>
+<td>打开新文件</td>
+</tr>
+<tr>
+<td><code>:e#</code></td>
+<td>回到前一个文件</td>
+</tr>
+<tr>
+<td><code>:ls</code></td>
+<td>列出以前编辑过的文档</td>
+</tr>
+<tr>
+<td><code>:b &lt;文件名&gt;（或者编号）</code></td>
+<td>直接进入文件编辑</td>
+</tr>
+<tr>
+<td><code>:bd</code> &lt;文件名&gt;（或者编号）`</td>
+<td>删除以前编辑过的列表中的文件项目</td>
+</tr>
+<tr>
+<td><code>e! &lt;文件名&gt;</code></td>
+<td>新打开文件，放弃正在编辑的文件</td>
+</tr>
+<tr>
+<td><code>:f</code></td>
+<td>显示正在编辑的文件名</td>
+</tr>
+<tr>
+<td><code>:f new.txt</code></td>
+<td>改变正在编辑的文件名字为new.txt</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_11">十三、视图操作<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>vim 可以在一个界面里打开多个窗口进行编辑，这些编辑窗口称为 vim 的视窗。</p>
+<h3 id="1_7">1. 命令行模式下打开视窗<a class="headerlink" href="#1_7" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:new</code></td>
+<td>打开一个新的 vim 视窗，并进入视窗编辑一个新文件</td>
+</tr>
+<tr>
+<td><code>:sp &lt;文件名&gt;</code></td>
+<td>打开新的水平分屏视窗来编辑文件</td>
+</tr>
+<tr>
+<td><code>:vsp &lt;文件名&gt;</code></td>
+<td>打开新的垂直分屏视窗来编辑文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2_7">2. 普通模式下打开视窗<a class="headerlink" href="#2_7" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl+w s</code></td>
+<td>将当前窗口分割成两个水平的窗口</td>
+</tr>
+<tr>
+<td><code>Ctrl+w v</code></td>
+<td>将当前窗口分割成两个垂直的窗口</td>
+</tr>
+<tr>
+<td><code>Ctrl+w q</code></td>
+<td>即 :q 结束分割出来的视窗</td>
+</tr>
+<tr>
+<td><code>Ctrl+w o</code></td>
+<td>打开一个视窗并且隐藏之前的所有视窗</td>
+</tr>
+<tr>
+<td><code>Ctrl+w j</code></td>
+<td>移至下面视窗</td>
+</tr>
+<tr>
+<td><code>Ctrl+w k</code></td>
+<td>移至上面视窗</td>
+</tr>
+<tr>
+<td><code>Ctrl+w h</code></td>
+<td>移至左边视窗</td>
+</tr>
+<tr>
+<td><code>Ctrl+w l</code></td>
+<td>移至右边视窗</td>
+</tr>
+<tr>
+<td><code>Ctrl+w J</code></td>
+<td>将当前视窗移至下面</td>
+</tr>
+<tr>
+<td><code>Ctrl+w K</code></td>
+<td>将当前视窗移至上面</td>
+</tr>
+<tr>
+<td><code>Ctrl+w H</code></td>
+<td>将当前视窗移至左边</td>
+</tr>
+<tr>
+<td><code>Ctrl+w L</code></td>
+<td>将当前视窗移至右边</td>
+</tr>
+<tr>
+<td><code>Ctrl+w -</code></td>
+<td>减小视窗的高度</td>
+</tr>
+<tr>
+<td><code>Ctrl+w +</code></td>
+<td>增加视窗的高度</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tab">十四、分页(tab)<a class="headerlink" href="#tab" title="Permanent link">&para;</a></h2>
+<p>命令行下输入</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:tabnew filename</code></td>
+<td>打开新分页并编辑新文件</td>
+</tr>
+<tr>
+<td><code>:tabclose</code></td>
+<td>关闭当前分页</td>
+</tr>
+<tr>
+<td><code>:tabonly</code></td>
+<td>关闭其他所有的分页。</td>
+</tr>
+<tr>
+<td><code>:tabn</code></td>
+<td>移动到上一个标签页，或在普通模式下输入<code>gt</code></td>
+</tr>
+<tr>
+<td><code>:tabp</code></td>
+<td>移动到下一个标签页，或在普通模式下输入<code>gT</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_12">十五、配置<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h3 id="1_8">1. 自动添加文件头部注释信息<a class="headerlink" href="#1_8" title="Permanent link">&para;</a></h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>func SetComment_c<span class="p">()</span>
+        <span class="k">call</span> setline<span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="s2">&quot;/*================================================================&quot;</span><span class="p">)</span>
+        <span class="k">call</span> append<span class="p">(</span>line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">),</span>   <span class="s2">&quot;*   Copyright © &quot;</span>.strftime<span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span>.<span class="s2">&quot; Yuanzhi Gao. All rights reserved.&quot;</span><span class="p">)</span>
+        <span class="k">call</span> append<span class="p">(</span>line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)+</span><span class="m">1</span><span class="p">,</span> <span class="s2">&quot;*   &quot;</span><span class="p">)</span>
+        <span class="k">call</span> append<span class="p">(</span>line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)+</span><span class="m">2</span><span class="p">,</span> <span class="s2">&quot;*   FileName ：&quot;</span>.expand<span class="p">(</span><span class="s2">&quot;%:t&quot;</span><span class="p">))</span>
+        <span class="k">call</span> append<span class="p">(</span>line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)+</span><span class="m">3</span><span class="p">,</span> <span class="s2">&quot;*   Author   ：Yuanzhi Gao&quot;</span><span class="p">)</span>
+        <span class="k">call</span> append<span class="p">(</span>line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)+</span><span class="m">4</span><span class="p">,</span> <span class="s2">&quot;*   Mail     ：gaopeng0214@126.com&quot;</span><span class="p">)</span>
+        <span class="k">call</span> append<span class="p">(</span>line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)+</span><span class="m">5</span><span class="p">,</span> <span class="s2">&quot;*   Date     ：&quot;</span>.strftime<span class="p">(</span><span class="s2">&quot;%Y年%m月%d日&quot;</span><span class="p">))</span>
+        <span class="k">call</span> append<span class="p">(</span>line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)+</span><span class="m">6</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">)</span>
+        <span class="k">call</span> append<span class="p">(</span>line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)+</span><span class="m">7</span><span class="p">,</span> <span class="s2">&quot;================================================================*/&quot;</span><span class="p">)</span>
+        <span class="k">call</span> append<span class="p">(</span>line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)+</span><span class="m">8</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">call</span> append<span class="p">(</span>line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)+</span><span class="m">9</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+endfunc
+
+<span class="c">&quot; 加入shell,Makefile注释</span>
+func SetComment<span class="p">()</span>
+        <span class="k">call</span> setline<span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="s2">&quot;#================================================================&quot;</span><span class="p">)</span>
+        <span class="k">call</span> setline<span class="p">(</span><span class="m">4</span><span class="p">,</span> <span class="s2">&quot;#   Copyright © &quot;</span>.strftime<span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span>.<span class="s2">&quot; Yuanzhi Gao. All rights reserved.&quot;</span><span class="p">)</span>
+        <span class="k">call</span> setline<span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="s2">&quot;#   &quot;</span><span class="p">)</span>
+        <span class="k">call</span> setline<span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="s2">&quot;#   FileName ：&quot;</span>.expand<span class="p">(</span><span class="s2">&quot;%:t&quot;</span><span class="p">))</span>
+        <span class="k">call</span> setline<span class="p">(</span><span class="m">7</span><span class="p">,</span> <span class="s2">&quot;#   Author   ：Yuanzhi Gao&quot;</span><span class="p">)</span>
+        <span class="k">call</span> setline<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s2">&quot;#   Mail     ：gaopeng0214@126.com&quot;</span><span class="p">)</span>
+        <span class="k">call</span> setline<span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="s2">&quot;#   Date     ：&quot;</span>.strftime<span class="p">(</span><span class="s2">&quot;%Y年%m月%d日&quot;</span><span class="p">))</span>
+        <span class="k">call</span> setline<span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+        <span class="k">call</span> setline<span class="p">(</span><span class="m">11</span><span class="p">,</span><span class="s2">&quot;#================================================================&quot;</span><span class="p">)</span>
+        <span class="k">call</span> setline<span class="p">(</span><span class="m">12</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">call</span> setline<span class="p">(</span><span class="m">13</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+endfunc
+<span class="c">&quot; 定义函数SetTitle，自动插入文件头</span>
+func SetTitle<span class="p">()</span>
+       <span class="k">if</span> &amp;<span class="k">filetype</span> <span class="p">==</span> <span class="s1">&#39;sh&#39;</span>
+            <span class="k">call</span> setline<span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="s2">&quot;#!/usr/bin/env bash&quot;</span><span class="p">)</span>
+            <span class="k">call</span> setline<span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">call</span> SetComment<span class="p">()</span>
+        <span class="k">elseif</span> &amp;<span class="k">filetype</span> <span class="p">==</span> <span class="s1">&#39;python&#39;</span>
+            <span class="k">call</span> setline<span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="s2">&quot;#!/usr/bin/env python3&quot;</span><span class="p">)</span>
+            <span class="k">call</span> setline<span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+            <span class="k">call</span> SetComment<span class="p">()</span>
+        <span class="k">elseif</span> &amp;<span class="k">filetype</span> <span class="p">==</span> <span class="s1">&#39;c&#39;</span>
+            <span class="k">call</span> SetComment_c<span class="p">()</span>
+            <span class="k">call</span> append<span class="p">(</span>line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)+</span><span class="m">10</span><span class="p">,</span> <span class="s2">&quot;#include &lt;stdio.h&gt;&quot;</span><span class="p">)</span>
+            <span class="k">call</span> append<span class="p">(</span>line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)+</span><span class="m">11</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">endif</span>
+endfunc
+<span class="c">&quot; 自动跳到文件末尾</span>
+autocmd <span class="nb">BufNewFile</span> * normal G
+</code></pre></div>
+</td></tr></table>
+<p>效果：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#</span>
+<span class="c1">#================================================================</span>
+<span class="c1">#   Copyright © 2019 Yuanzhi Gao. All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1">#   FileName ：tesss.py</span>
+<span class="c1">#   Author   ：Yuanzhi Gao</span>
+<span class="c1">#   Mail     ：gaopeng0214@126.com</span>
+<span class="c1">#   Date     ：2019年03月16日  </span>
+<span class="c1"># </span>
+<span class="c1">#================================================================</span>
+</code></pre></div>
+</td></tr></table>
+<h3 id="2_8">2. 缩进配置<a class="headerlink" href="#2_8" title="Permanent link">&para;</a></h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c">&quot; 缩进设置</span>
+<span class="k">set</span> <span class="nb">autoindent</span> <span class="c">&quot; 自动缩进</span>
+<span class="k">set</span> <span class="nb">cindent</span> <span class="c">&quot; c语言缩进风格</span>
+<span class="k">set</span> <span class="nb">tabstop</span><span class="p">=</span><span class="m">4</span> <span class="c">&quot; tab键宽度</span>
+<span class="c">&quot; 设置使用&lt;&lt; 或 &gt;&gt; 时左右移动的距离，设置为4个空格</span>
+<span class="k">set</span> <span class="nb">shiftwidth</span><span class="p">=</span><span class="m">4</span>
+</code></pre></div>
+</td></tr></table>
+<h3 id="3_3">3. 补齐括号和引号<a class="headerlink" href="#3_3" title="Permanent link">&para;</a></h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c">&quot; 补全括号，引号</span>
+<span class="nb">inoremap</span> <span class="p">(</span> <span class="p">()&lt;</span>ESC<span class="p">&gt;</span><span class="k">i</span>
+<span class="nb">inoremap</span> [ []<span class="p">&lt;</span>ESC<span class="p">&gt;</span><span class="k">i</span>
+<span class="nb">inoremap</span> { {}<span class="p">&lt;</span>ESC<span class="p">&gt;</span><span class="k">i</span>
+<span class="nb">inoremap</span> <span class="p">&lt;</span> <span class="p">&lt;&gt;&lt;</span>ESC<span class="p">&gt;</span><span class="k">i</span>
+<span class="nb">inoremap</span> <span class="s1">&#39; &#39;</span>&#39;<span class="p">&lt;</span>ESC<span class="p">&gt;</span><span class="k">i</span>
+<span class="nb">inoremap</span> <span class="s2">&quot; &quot;</span>&quot;<span class="p">&lt;</span>ESC<span class="p">&gt;</span><span class="k">i</span>
+</code></pre></div>
+</td></tr></table>
+<h3 id="4-80">4. 在每行第80个字符处显示竖线, 颜色是淡蓝色<a class="headerlink" href="#4-80" title="Permanent link">&para;</a></h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">set</span>  <span class="nb">colorcolumn</span><span class="p">=</span><span class="m">80</span>
+<span class="k">hi</span> ColorColumn ctermbg<span class="p">=</span>lightgreen
+</code></pre></div>
+</td></tr></table>
+<h2 id="5">5. 其他<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c">&quot; 设置标尺（光标所在行有下划线提示）</span>
+<span class="k">set</span> <span class="nb">cursorline</span>
+<span class="c">&quot; 可用鼠标</span>
+<span class="k">set</span> <span class="nb">mouse</span><span class="p">=</span><span class="k">a</span>
+</code></pre></div>
+</td></tr></table>
+<h2 id="tmux">十六、tmux<a class="headerlink" href="#tmux" title="Permanent link">&para;</a></h2>
+<h3 id="1_9">1. 会话管理<a class="headerlink" href="#1_9" title="Permanent link">&para;</a></h3>
+<h4 id="1_10">1. 新建会话<a class="headerlink" href="#1_10" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>$ tmux new -s session-one -d
+<span class="c1"># -s:指定回话名称</span>
+<span class="c1"># -d:会话在后台运行</span>
+</code></pre></div>
+</td></tr></table>
+<h4 id="2_9">2. 查看所有会话<a class="headerlink" href="#2_9" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>$ tmux ls
+session-one: <span class="m">1</span> windows <span class="o">(</span>created Mon Mar <span class="m">25</span> <span class="m">21</span>:11:28 <span class="m">2019</span><span class="o">)</span> <span class="o">[</span>80x23<span class="o">]</span>
+</code></pre></div>
+</td></tr></table>
+<h4 id="3_4">3. 登陆会话<a class="headerlink" href="#3_4" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">#登陆会话</span>
+$ tmux attach -t session-one
+</code></pre></div>
+</td></tr></table>
+<h4 id="4_1">4. 退出会话<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h4>
+<p><code>Ctrl-b + d</code></p>
+<h4 id="5_1">5. 退出并删除会话<a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h4>
+<p><code>Ctrl - d</code></p>
+<h4 id="6">6. 删除会话<a class="headerlink" href="#6" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1"># 删除会话</span>
+$ tmux kill-session -t session-one
+</code></pre></div>
+</td></tr></table>
+<h4 id="7">7. 重命名会话<a class="headerlink" href="#7" title="Permanent link">&para;</a></h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>$ tmux rename -t session-one session-test
+$ tmux ls
+session-test: <span class="m">1</span> windows <span class="o">(</span>created Mon Mar <span class="m">25</span> <span class="m">21</span>:16:56 <span class="m">2019</span><span class="o">)</span> <span class="o">[</span>80x23<span class="o">]</span>
+</code></pre></div>
+</td></tr></table>
+<p>tmux的快捷键使用方式：
+先按prefix组合键(默认是Ctrl-b，可以自定义)，然后再按快捷键</p>
+<h3 id="2_10">2. 系统操作<a class="headerlink" href="#2_10" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>?</code></td>
+<td>列出所有快捷键，按q返回</td>
+</tr>
+<tr>
+<td><code>d</code></td>
+<td>脱离当前会话，暂时返回shell界面</td>
+</tr>
+<tr>
+<td><code>D</code></td>
+<td>同时开启多个会话时选择要脱离的会话</td>
+</tr>
+<tr>
+<td><code>s</code></td>
+<td>同时开启多个会话时切换会话</td>
+</tr>
+<tr>
+<td><code>:</code></td>
+<td>进入命令行模式（执行tmux的命令，不是系统命令）</td>
+</tr>
+<tr>
+<td><code>[</code></td>
+<td>进入复制模式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3_5">3. 窗口操作<a class="headerlink" href="#3_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>c</code></td>
+<td>创建新窗口</td>
+</tr>
+<tr>
+<td><code>&amp;</code></td>
+<td>关闭当前窗口</td>
+</tr>
+<tr>
+<td><code>0-9</code></td>
+<td>跳转到指定窗口</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>切换到上一个窗口</td>
+</tr>
+<tr>
+<td><code>n</code></td>
+<td>切换到下一个窗口</td>
+</tr>
+<tr>
+<td><code>l</code></td>
+<td>前后两个窗口直接切换</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td>通过窗口列表切换窗口</td>
+</tr>
+<tr>
+<td><code>,</code></td>
+<td>重命名当前窗口</td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>修改当前窗口编号</td>
+</tr>
+<tr>
+<td><code>f</code></td>
+<td>在所有窗口中查找指定文本</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4_2">4. 面板操作<a class="headerlink" href="#4_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"</code></td>
+<td>上下切分面板</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>左右切分面板</td>
+</tr>
+<tr>
+<td><code>x</code></td>
+<td>关闭当前面板</td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>在新窗口中打开当前面板</td>
+</tr>
+<tr>
+<td><code>space</code></td>
+<td>循环切换面板布局</td>
+</tr>
+<tr>
+<td><code>q</code></td>
+<td>显示面板编号</td>
+</tr>
+<tr>
+<td><code>o</code></td>
+<td>切换到下一个面板</td>
+</tr>
+<tr>
+<td><code>{</code></td>
+<td>向前置换当前面板</td>
+</tr>
+<tr>
+<td><code>}</code></td>
+<td>向后置换当前面板</td>
+</tr>
+<tr>
+<td><code>ctrl+o</code></td>
+<td>顺时针旋转当前面板</td>
+</tr>
+<tr>
+<td><code>alt+o</code></td>
+<td>逆时针旋转当前面板</td>
+</tr>
+<tr>
+<td><code>alt+方向键</code></td>
+<td>以5个单位移动边缘以调整面板大小</td>
+</tr>
+<tr>
+<td><code>ctrl+方向键</code></td>
+<td>以1个单位移动边缘以调整面板大小</td>
+</tr>
+<tr>
+<td><code>方向键</code></td>
+<td>移动光标以选择面板</td>
+</tr>
+<tr>
+<td><code>z</code></td>
+<td>最大化/恢复当前面板</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5_2">5. 修改配置文件<a class="headerlink" href="#5_2" title="Permanent link">&para;</a></h3>
+<p>配置文件默认的查找顺序为/etc/tmux.conf,~/.tmux.conf。这两个文件没有的话需要自己创建</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1"># 设置操作模式为vi</span>
+set-window-option -g mode-keys vi
+<span class="c1"># 设置字符集</span>
+set-window-option -g utf8 on
+<span class="c1"># 重新绑定快捷键设置为Ctrl-a</span>
+set-option -g prefix C-a
+unbind-key C-b
+bind-key C-a send-prefix
+<span class="c1"># 窗口序号从1开始计数</span>
+<span class="nb">set</span> -g base-index <span class="m">1</span>
+<span class="c1"># 修改右下角时间显示格式</span>
+<span class="nb">set</span> -g status-right <span class="s1">&#39;[%Y-%m-%d %H:%M]&#39;</span>
+<span class="c1"># 设置重新加载配置文件的快捷键为prefix + r</span>
+<span class="nb">bind</span> r source-file ~/.tmux.conf <span class="se">\;</span> display-message <span class="s2">&quot;Config reloaded..&quot;</span>
+</code></pre></div>
+</td></tr></table>
+<h3 id="6-tmux">6. 在tmux中粘贴复制<a class="headerlink" href="#6-tmux" title="Permanent link">&para;</a></h3>
+<ul>
+<li>修改配置文件.tmux.conf</li>
+</ul>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>set-window-option -g mode-keys vi
+set-window-option -g utf8 on
+</code></pre></div>
+</td></tr></table>
+<ul>
+<li>重新登陆shell(重要)</li>
+<li>Ctrl-b + [ 进入复制模式</li>
+<li>space 选择</li>
+<li>Enter结束选择</li>
+<li>Ctrl-b + ] 粘贴</li>
+</ul>
+<h2 id="_13">附：<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<p><img alt="vim1" src="../../assets/images/vim/vim1.png" /></p>
+<p><img alt="" src="../../assets/images/vim/vim2.png" /></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../ShellScript/" class="md-footer__link md-footer__link--prev" aria-label="Previous: ShellScript" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              ShellScript
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../network/TCP/" class="md-footer__link md-footer__link--next" aria-label="Next: TCP/IP" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              TCP/IP
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="mailto:sufangmu8377@163.com" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2 12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/sufangmu" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "header.autohide"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.409db549.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.756773cc.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+    
+  </body>
+</html>

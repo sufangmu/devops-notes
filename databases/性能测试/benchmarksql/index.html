@@ -1,0 +1,6257 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="苏方木的笔记">
+      
+      
+        <meta name="author" content="苏方木">
+      
+      
+        <link rel="canonical" href="https://github.com/sufangmu/databases/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/benchmarksql/">
+      
+      
+        <link rel="prev" href="../../PostgreSQL/%E5%8E%9F%E7%90%86/%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">
+      
+      
+        <link rel="next" href="../sysbench/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>BenchmarkSQL - 苏方木的笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,700,700i%7CUbuntu+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Ubuntu";--md-code-font:"Ubuntu Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="苏方木的笔记" class="md-header__button md-logo" aria-label="苏方木的笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            苏方木的笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              BenchmarkSQL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="indigo"  aria-label="切换到明亮模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到明亮模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  关于我
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../linux/command-line/" class="md-tabs__link">
+          
+  
+    
+  
+  Linux
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../MySQL/%E5%AE%89%E8%A3%85/" class="md-tabs__link">
+          
+  
+    
+  
+  数据库
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../software/web/Nginx/" class="md-tabs__link">
+          
+  
+    
+  
+  服务
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../programming/c/%E6%A6%82%E8%BF%B0/" class="md-tabs__link">
+          
+  
+    
+  
+  编程
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../DevOps/Git/Git/" class="md-tabs__link">
+          
+  
+    
+  
+  DevOps
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../resource/docs/" class="md-tabs__link">
+        
+  
+    
+  
+  文档
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../english/NCE2/notes/" class="md-tabs__link">
+          
+  
+    
+  
+  English
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="苏方木的笔记" class="md-nav__button md-logo" aria-label="苏方木的笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    苏方木的笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于我
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/command-line/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    命令行
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/grep_sed_awk/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文本处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/ShellScript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ShellScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/vim/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VIM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/service/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    服务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/network/TCP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TCP/IP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/network/iptables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Iptables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/CA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数字签名
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    数据库
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            数据库
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MySQL
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            MySQL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    用户管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据类型和运算符
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/SQL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    存储过程和函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/%E7%B4%A2%E5%BC%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    索引
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    执行计划
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_8" id="__nav_3_1_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    优化
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            优化
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/SQL%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    索引优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PostgreSQL
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            PostgreSQL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_1" id="__nav_3_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    管理
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            管理
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/%E5%8D%95%E5%AE%9E%E4%BE%8B%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    单实例安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/%E4%B8%BB%E5%A4%87%E5%AE%9E%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主备实例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/%E8%BF%9E%E6%8E%A5%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    连接访问控制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/%E7%94%A8%E6%88%B7%E3%80%81%E8%A7%92%E8%89%B2%E5%92%8C%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    用户、角色和模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/%E5%AF%B9%E8%B1%A1%E6%9D%83%E9%99%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    对象权限
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/basebackup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    basebackup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D%E4%B9%8B%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    逻辑备份
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D%E4%B9%8B%E7%89%A9%E7%90%86%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D%E4%B8%80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    物理备份恢复一
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D%E4%B9%8B%E7%89%A9%E7%90%86%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D%E4%BA%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    物理备份恢复二
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/PITR/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PITR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E7%AE%A1%E7%90%86/%E5%B8%B8%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用系统管理命令
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_2" id="__nav_3_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    内部原理
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            内部原理
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/WAL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WAL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/FullPageWrite/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FullPageWrite
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/pg_control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pg_control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/Checkpoint/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Checkpoint
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%81%A2%E5%A4%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据库恢复
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E5%92%8C%E5%9D%97%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据文件和块存储结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/%E5%85%83%E7%BB%84%E7%BB%93%E6%9E%84%E5%92%8CDML%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    元组结构和DML操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/vacuum/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vacuum
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/autovacuum/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    autovacuum
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/clog%E4%BD%9C%E7%94%A8%E5%92%8C%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    clog作用和管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/Toast/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Toast
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/%E5%86%BB%E7%BB%93tixd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    冻结tixd
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostgreSQL/%E5%8E%9F%E7%90%86/%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    事务与隔离级别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    性能测试
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            性能测试
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    BenchmarkSQL
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sysbench/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sysbench
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    服务
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            服务
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Web
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../software/web/Nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../software/web/Tomcat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tomcat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    中间件
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            中间件
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../software/middleware/rabbitmq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RabbitMQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    编程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            编程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            C
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/c/%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/c/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/c/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    流程控制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/c/%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数组
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/c/%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/c/%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    指针
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/c/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    动态内存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/c/%E7%BB%93%E6%9E%84%E4%BD%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    结构体
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/c/%E6%9E%9A%E4%B8%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    枚举
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_1" id="__nav_5_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    基础
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/01-python%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    python简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/02-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基本数据类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/03-%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    逻辑控制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/04-%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/05-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    面向对象
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/06-%E5%8C%85%E5%92%8C%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    包和模块
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/07-%E8%BF%AD%E4%BB%A3%E5%92%8C%E6%8E%A8%E5%AF%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    迭代和推导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/08-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/09-%E5%BC%82%E5%B8%B8%E4%B8%8E%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异常处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/01-%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内置模块
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/02-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    并发编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/03-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/04-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据库编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    迭代器和生成器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E5%9F%BA%E7%A1%80/%E5%8D%8F%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    协程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_2" id="__nav_5_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Django
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Django
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Django/install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Django/request/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    请求
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Django/response/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    响应三板斧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Django/urls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    路由层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Django/view/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    视图层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Django/template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模板层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Django/model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模型层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Django/middleware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    中间件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Django/forms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    表单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Django/auth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    auth模块
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Django/cookie%26session/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cookie和session
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Django/admin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    admin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_3" id="__nav_5_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    DRF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            DRF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/DRF/install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/DRF/%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    序列化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/DRF/%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    请求和响应
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/DRF/%E8%A7%86%E5%9B%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    视图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/DRF/%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    路由
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/DRF/%E8%AE%A4%E8%AF%81%E3%80%81%E6%9D%83%E9%99%90%E5%92%8C%E9%A2%91%E7%8E%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    认证、权限和频率
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/DRF/%E8%BF%87%E6%BB%A4%E3%80%81%E6%8E%92%E5%BA%8F%E3%80%81%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    过滤、排序、异常处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/DRF/%E8%87%AA%E5%AE%9A%E4%B9%89response/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    自定义response
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_4" id="__nav_5_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Flask
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Flask
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介与安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/configure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/request%26response/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    请求和响应
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/route/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    路由
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模板
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/view/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    视图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/cookie%26session/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cookie和session
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/blueprint/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    蓝图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/context/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    上下文
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/flashing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    闪现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/middleware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    中间件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_4_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_4_12" id="__nav_5_2_4_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    扩展
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_2_4_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            扩展
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/extention/flask-session.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    flask-session
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_4_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_4_13" id="__nav_5_2_4_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    源码
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_2_4_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_4_13">
+            <span class="md-nav__icon md-icon"></span>
+            源码
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/sourcecode/Local/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Local
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/sourcecode/session/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Session
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Flask/sourcecode/context/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Context
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/Jinja2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jinja2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_7" id="__nav_5_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    测试
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            测试
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/python/%E6%B5%8B%E8%AF%95/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    单元测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Java
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Java
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3_1" id="__nav_5_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    基础
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E5%9F%BA%E7%A1%80/%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E5%9F%BA%E7%A1%80/%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E5%9F%BA%E7%A1%80/%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数组
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    面向对象（一）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%BA%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    面向对象（二）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%89%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    面向对象（三）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E5%9F%BA%E7%A1%80/equals%28%29%E5%92%8C%3D%3D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    equals()和==
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E5%9F%BA%E7%A1%80/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异常处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3_2" id="__nav_5_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    高级
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            高级
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E9%AB%98%E7%BA%A7/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E9%AB%98%E7%BA%A7/%E5%B8%B8%E7%94%A8%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E9%AB%98%E7%BA%A7/%E6%9E%9A%E4%B8%BE%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    枚举类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E9%AB%98%E7%BA%A7/%E6%B3%9B%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    泛型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E9%AB%98%E7%BA%A7/%E9%9B%86%E5%90%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    集合
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E9%AB%98%E7%BA%A7/%E5%8F%8D%E5%B0%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    反射
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E9%AB%98%E7%BA%A7/%E6%B3%A8%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    注解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E9%AB%98%E7%BA%A7/IO%E6%B5%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IO流
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/%E9%AB%98%E7%BA%A7/%E6%96%B0%E7%89%B9%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    新特性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/java/JDBC/JDBC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JDBC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/html/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/CSS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/JavaScript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    数据结构与算法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            数据结构与算法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/DataStructuresAndAlgorithms/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据结构与算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    DevOps
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            DevOps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Git/Git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Jenkins
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Jenkins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Jenkins/jenkinsfile/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jenkinsfile
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Jenkins/jenkins-pipeline-syntax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pipeline-syntax
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ansible
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ansible
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Ansible/ansible/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ansible基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Ansible/AnsibleAPI/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AnsibleAPI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/Architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/underlyingtechnology/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    底层技术
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/Install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/Image/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    镜像
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/Container/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    容器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/Network/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/Volume/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/Dockerfile/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dockerfile
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/system%E5%AD%90%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    system子命令
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/%E5%AE%B9%E5%99%A8%E4%B8%8E%E9%95%9C%E5%83%8F%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    容器与镜像的导入导出区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/Networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/StorageDriver/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    存储驱动
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DevOps/Docker/Security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    容器安全
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../resource/docs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    English
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            English
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../english/NCE2/notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    新概念英语二
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>BenchmarkSQL</h1>
+
+<p>环境准备</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>epel-release
+yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>java<span class="w"> </span>ant<span class="w"> </span>R
+</code></pre></div></td></tr></table></div>
+<p>安装benchmarksql</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>wget<span class="w"> </span>https://nchc.dl.sourceforge.net/project/benchmarksql/benchmarksql-5.0.zip<span class="w"> </span>--no-check-certificate
+unzip<span class="w"> </span>benchmarksql-5.0.zip<span class="w"> </span>
+<span class="nb">cd</span><span class="w"> </span>benchmarksql-5.0/
+ant
+</code></pre></div></td></tr></table></div>
+<p>创建tpcc用户及数据库</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">tpcc</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="s1">&#39;tpcc@123&#39;</span><span class="p">;</span>
+<span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">benchmark</span><span class="w"> </span><span class="k">owner</span><span class="o">=</span><span class="n">tpcc</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<p>配置benchmarksql-5.0/run/props.pg</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nv">db</span><span class="o">=</span>postgres
+<span class="nv">driver</span><span class="o">=</span>org.postgresql.Driver
+<span class="nv">conn</span><span class="o">=</span>jdbc:postgresql://localhost:5432/benchmark
+<span class="nv">user</span><span class="o">=</span>tpcc<span class="w">  </span><span class="c1"># 数据库用例</span>
+<span class="nv">password</span><span class="o">=</span>tpcc@123<span class="w"> </span><span class="c1"># 数据库密码</span>
+
+<span class="nv">warehouses</span><span class="o">=</span><span class="m">10</span>
+<span class="nv">loadWorkers</span><span class="o">=</span><span class="m">4</span>
+
+<span class="nv">terminals</span><span class="o">=</span><span class="m">1</span>
+//To<span class="w"> </span>run<span class="w"> </span>specified<span class="w"> </span>transactions<span class="w"> </span>per<span class="w"> </span>terminal-<span class="w"> </span>runMins<span class="w"> </span>must<span class="w"> </span>equal<span class="w"> </span>zero
+<span class="nv">runTxnsPerTerminal</span><span class="o">=</span><span class="m">0</span>
+//To<span class="w"> </span>run<span class="w"> </span><span class="k">for</span><span class="w"> </span>specified<span class="w"> </span>minutes-<span class="w"> </span>runTxnsPerTerminal<span class="w"> </span>must<span class="w"> </span>equal<span class="w"> </span>zero
+<span class="nv">runMins</span><span class="o">=</span><span class="m">5</span>
+//Number<span class="w"> </span>of<span class="w"> </span>total<span class="w"> </span>transactions<span class="w"> </span>per<span class="w"> </span>minute
+<span class="nv">limitTxnsPerMin</span><span class="o">=</span><span class="m">300</span>
+
+//Set<span class="w"> </span>to<span class="w"> </span><span class="nb">true</span><span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">4</span>.x<span class="w"> </span>compatible<span class="w"> </span>mode.<span class="w"> </span>Set<span class="w"> </span>to<span class="w"> </span><span class="nb">false</span><span class="w"> </span>to<span class="w"> </span>use<span class="w"> </span>the
+//entire<span class="w"> </span>configured<span class="w"> </span>database<span class="w"> </span>evenly.
+<span class="nv">terminalWarehouseFixed</span><span class="o">=</span><span class="nb">true</span>
+
+//The<span class="w"> </span>following<span class="w"> </span>five<span class="w"> </span>values<span class="w"> </span>must<span class="w"> </span>add<span class="w"> </span>up<span class="w"> </span>to<span class="w"> </span><span class="m">100</span>
+//The<span class="w"> </span>default<span class="w"> </span>percentages<span class="w"> </span>of<span class="w"> </span><span class="m">45</span>,<span class="w"> </span><span class="m">43</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>match<span class="w"> </span>the<span class="w"> </span>TPC-C<span class="w"> </span>spec
+<span class="nv">newOrderWeight</span><span class="o">=</span><span class="m">45</span>
+<span class="nv">paymentWeight</span><span class="o">=</span><span class="m">43</span>
+<span class="nv">orderStatusWeight</span><span class="o">=</span><span class="m">4</span>
+<span class="nv">deliveryWeight</span><span class="o">=</span><span class="m">4</span>
+<span class="nv">stockLevelWeight</span><span class="o">=</span><span class="m">4</span>
+
+//<span class="w"> </span>Directory<span class="w"> </span>name<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span><span class="k">for</span><span class="w"> </span>collecting<span class="w"> </span>detailed<span class="w"> </span>result<span class="w"> </span>data.
+//<span class="w"> </span>Comment<span class="w"> </span>this<span class="w"> </span>out<span class="w"> </span>to<span class="w"> </span>suppress.
+<span class="nv">resultDirectory</span><span class="o">=</span>my_result_%tY-%tm-%td_%tH%tM%tS
+<span class="nv">osCollectorScript</span><span class="o">=</span>./misc/os_collector_linux.py
+<span class="nv">osCollectorInterval</span><span class="o">=</span><span class="m">1</span>
+//osCollectorSSHAddr<span class="o">=</span>user@dbhost
+<span class="nv">osCollectorDevices</span><span class="o">=</span>net_ens33<span class="w"> </span>blk_sda
+</code></pre></div></td></tr></table></div>
+<p>建表并插入数据</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span></pre></div></td><td class="code"><div><pre><span></span><code>$<span class="w"> </span>bash<span class="w"> </span>benchmarksql-5.0/run/runDatabaseBuild.sh<span class="w"> </span>props.pg
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="c1"># Loading SQL file ./sql.common/tableCreates.sql</span>
+<span class="c1"># ------------------------------------------------------------</span>
+create<span class="w"> </span>table<span class="w"> </span>bmsql_config<span class="w"> </span><span class="o">(</span>
+cfg_name<span class="w">    </span>varchar<span class="o">(</span><span class="m">30</span><span class="o">)</span><span class="w"> </span>primary<span class="w"> </span>key,
+cfg_value<span class="w">   </span>varchar<span class="o">(</span><span class="m">50</span><span class="o">)</span>
+<span class="o">)</span><span class="p">;</span>
+create<span class="w"> </span>table<span class="w"> </span>bmsql_warehouse<span class="w"> </span><span class="o">(</span>
+w_id<span class="w">        </span>integer<span class="w">   </span>not<span class="w"> </span>null,
+w_ytd<span class="w">       </span>decimal<span class="o">(</span><span class="m">12</span>,2<span class="o">)</span>,
+w_tax<span class="w">       </span>decimal<span class="o">(</span><span class="m">4</span>,4<span class="o">)</span>,
+w_name<span class="w">      </span>varchar<span class="o">(</span><span class="m">10</span><span class="o">)</span>,
+w_street_1<span class="w">  </span>varchar<span class="o">(</span><span class="m">20</span><span class="o">)</span>,
+w_street_2<span class="w">  </span>varchar<span class="o">(</span><span class="m">20</span><span class="o">)</span>,
+w_city<span class="w">      </span>varchar<span class="o">(</span><span class="m">20</span><span class="o">)</span>,
+w_state<span class="w">     </span>char<span class="o">(</span><span class="m">2</span><span class="o">)</span>,
+w_zip<span class="w">       </span>char<span class="o">(</span><span class="m">9</span><span class="o">)</span>
+<span class="o">)</span><span class="p">;</span>
+create<span class="w"> </span>table<span class="w"> </span>bmsql_district<span class="w"> </span><span class="o">(</span>
+d_w_id<span class="w">       </span>integer<span class="w">       </span>not<span class="w"> </span>null,
+d_id<span class="w">         </span>integer<span class="w">       </span>not<span class="w"> </span>null,
+d_ytd<span class="w">        </span>decimal<span class="o">(</span><span class="m">12</span>,2<span class="o">)</span>,
+d_tax<span class="w">        </span>decimal<span class="o">(</span><span class="m">4</span>,4<span class="o">)</span>,
+d_next_o_id<span class="w">  </span>integer,
+d_name<span class="w">       </span>varchar<span class="o">(</span><span class="m">10</span><span class="o">)</span>,
+d_street_1<span class="w">   </span>varchar<span class="o">(</span><span class="m">20</span><span class="o">)</span>,
+d_street_2<span class="w">   </span>varchar<span class="o">(</span><span class="m">20</span><span class="o">)</span>,
+d_city<span class="w">       </span>varchar<span class="o">(</span><span class="m">20</span><span class="o">)</span>,
+d_state<span class="w">      </span>char<span class="o">(</span><span class="m">2</span><span class="o">)</span>,
+d_zip<span class="w">        </span>char<span class="o">(</span><span class="m">9</span><span class="o">)</span>
+<span class="o">)</span><span class="p">;</span>
+create<span class="w"> </span>table<span class="w"> </span>bmsql_customer<span class="w"> </span><span class="o">(</span>
+c_w_id<span class="w">         </span>integer<span class="w">        </span>not<span class="w"> </span>null,
+c_d_id<span class="w">         </span>integer<span class="w">        </span>not<span class="w"> </span>null,
+c_id<span class="w">           </span>integer<span class="w">        </span>not<span class="w"> </span>null,
+c_discount<span class="w">     </span>decimal<span class="o">(</span><span class="m">4</span>,4<span class="o">)</span>,
+c_credit<span class="w">       </span>char<span class="o">(</span><span class="m">2</span><span class="o">)</span>,
+c_last<span class="w">         </span>varchar<span class="o">(</span><span class="m">16</span><span class="o">)</span>,
+c_first<span class="w">        </span>varchar<span class="o">(</span><span class="m">16</span><span class="o">)</span>,
+c_credit_lim<span class="w">   </span>decimal<span class="o">(</span><span class="m">12</span>,2<span class="o">)</span>,
+c_balance<span class="w">      </span>decimal<span class="o">(</span><span class="m">12</span>,2<span class="o">)</span>,
+c_ytd_payment<span class="w">  </span>decimal<span class="o">(</span><span class="m">12</span>,2<span class="o">)</span>,
+c_payment_cnt<span class="w">  </span>integer,
+c_delivery_cnt<span class="w"> </span>integer,
+c_street_1<span class="w">     </span>varchar<span class="o">(</span><span class="m">20</span><span class="o">)</span>,
+c_street_2<span class="w">     </span>varchar<span class="o">(</span><span class="m">20</span><span class="o">)</span>,
+c_city<span class="w">         </span>varchar<span class="o">(</span><span class="m">20</span><span class="o">)</span>,
+c_state<span class="w">        </span>char<span class="o">(</span><span class="m">2</span><span class="o">)</span>,
+c_zip<span class="w">          </span>char<span class="o">(</span><span class="m">9</span><span class="o">)</span>,
+c_phone<span class="w">        </span>char<span class="o">(</span><span class="m">16</span><span class="o">)</span>,
+c_since<span class="w">        </span>timestamp,
+c_middle<span class="w">       </span>char<span class="o">(</span><span class="m">2</span><span class="o">)</span>,
+c_data<span class="w">         </span>varchar<span class="o">(</span><span class="m">500</span><span class="o">)</span>
+<span class="o">)</span><span class="p">;</span>
+create<span class="w"> </span>sequence<span class="w"> </span>bmsql_hist_id_seq<span class="p">;</span>
+create<span class="w"> </span>table<span class="w"> </span>bmsql_history<span class="w"> </span><span class="o">(</span>
+hist_id<span class="w">  </span>integer,
+h_c_id<span class="w">   </span>integer,
+h_c_d_id<span class="w"> </span>integer,
+h_c_w_id<span class="w"> </span>integer,
+h_d_id<span class="w">   </span>integer,
+h_w_id<span class="w">   </span>integer,
+h_date<span class="w">   </span>timestamp,
+h_amount<span class="w"> </span>decimal<span class="o">(</span><span class="m">6</span>,2<span class="o">)</span>,
+h_data<span class="w">   </span>varchar<span class="o">(</span><span class="m">24</span><span class="o">)</span>
+<span class="o">)</span><span class="p">;</span>
+create<span class="w"> </span>table<span class="w"> </span>bmsql_new_order<span class="w"> </span><span class="o">(</span>
+no_w_id<span class="w">  </span>integer<span class="w">   </span>not<span class="w"> </span>null,
+no_d_id<span class="w">  </span>integer<span class="w">   </span>not<span class="w"> </span>null,
+no_o_id<span class="w">  </span>integer<span class="w">   </span>not<span class="w"> </span>null
+<span class="o">)</span><span class="p">;</span>
+create<span class="w"> </span>table<span class="w"> </span>bmsql_oorder<span class="w"> </span><span class="o">(</span>
+o_w_id<span class="w">       </span>integer<span class="w">      </span>not<span class="w"> </span>null,
+o_d_id<span class="w">       </span>integer<span class="w">      </span>not<span class="w"> </span>null,
+o_id<span class="w">         </span>integer<span class="w">      </span>not<span class="w"> </span>null,
+o_c_id<span class="w">       </span>integer,
+o_carrier_id<span class="w"> </span>integer,
+o_ol_cnt<span class="w">     </span>integer,
+o_all_local<span class="w">  </span>integer,
+o_entry_d<span class="w">    </span>timestamp
+<span class="o">)</span><span class="p">;</span>
+create<span class="w"> </span>table<span class="w"> </span>bmsql_order_line<span class="w"> </span><span class="o">(</span>
+ol_w_id<span class="w">         </span>integer<span class="w">   </span>not<span class="w"> </span>null,
+ol_d_id<span class="w">         </span>integer<span class="w">   </span>not<span class="w"> </span>null,
+ol_o_id<span class="w">         </span>integer<span class="w">   </span>not<span class="w"> </span>null,
+ol_number<span class="w">       </span>integer<span class="w">   </span>not<span class="w"> </span>null,
+ol_i_id<span class="w">         </span>integer<span class="w">   </span>not<span class="w"> </span>null,
+ol_delivery_d<span class="w">   </span>timestamp,
+ol_amount<span class="w">       </span>decimal<span class="o">(</span><span class="m">6</span>,2<span class="o">)</span>,
+ol_supply_w_id<span class="w">  </span>integer,
+ol_quantity<span class="w">     </span>integer,
+ol_dist_info<span class="w">    </span>char<span class="o">(</span><span class="m">24</span><span class="o">)</span>
+<span class="o">)</span><span class="p">;</span>
+create<span class="w"> </span>table<span class="w"> </span>bmsql_item<span class="w"> </span><span class="o">(</span>
+i_id<span class="w">     </span>integer<span class="w">      </span>not<span class="w"> </span>null,
+i_name<span class="w">   </span>varchar<span class="o">(</span><span class="m">24</span><span class="o">)</span>,
+i_price<span class="w">  </span>decimal<span class="o">(</span><span class="m">5</span>,2<span class="o">)</span>,
+i_data<span class="w">   </span>varchar<span class="o">(</span><span class="m">50</span><span class="o">)</span>,
+i_im_id<span class="w">  </span>integer
+<span class="o">)</span><span class="p">;</span>
+create<span class="w"> </span>table<span class="w"> </span>bmsql_stock<span class="w"> </span><span class="o">(</span>
+s_w_id<span class="w">       </span>integer<span class="w">       </span>not<span class="w"> </span>null,
+s_i_id<span class="w">       </span>integer<span class="w">       </span>not<span class="w"> </span>null,
+s_quantity<span class="w">   </span>integer,
+s_ytd<span class="w">        </span>integer,
+s_order_cnt<span class="w">  </span>integer,
+s_remote_cnt<span class="w"> </span>integer,
+s_data<span class="w">       </span>varchar<span class="o">(</span><span class="m">50</span><span class="o">)</span>,
+s_dist_01<span class="w">    </span>char<span class="o">(</span><span class="m">24</span><span class="o">)</span>,
+s_dist_02<span class="w">    </span>char<span class="o">(</span><span class="m">24</span><span class="o">)</span>,
+s_dist_03<span class="w">    </span>char<span class="o">(</span><span class="m">24</span><span class="o">)</span>,
+s_dist_04<span class="w">    </span>char<span class="o">(</span><span class="m">24</span><span class="o">)</span>,
+s_dist_05<span class="w">    </span>char<span class="o">(</span><span class="m">24</span><span class="o">)</span>,
+s_dist_06<span class="w">    </span>char<span class="o">(</span><span class="m">24</span><span class="o">)</span>,
+s_dist_07<span class="w">    </span>char<span class="o">(</span><span class="m">24</span><span class="o">)</span>,
+s_dist_08<span class="w">    </span>char<span class="o">(</span><span class="m">24</span><span class="o">)</span>,
+s_dist_09<span class="w">    </span>char<span class="o">(</span><span class="m">24</span><span class="o">)</span>,
+s_dist_10<span class="w">    </span>char<span class="o">(</span><span class="m">24</span><span class="o">)</span>
+<span class="o">)</span><span class="p">;</span>
+Starting<span class="w"> </span>BenchmarkSQL<span class="w"> </span>LoadData
+
+<span class="nv">driver</span><span class="o">=</span>org.postgresql.Driver
+<span class="nv">conn</span><span class="o">=</span>jdbc:postgresql://localhost:5432/benchmark
+<span class="nv">user</span><span class="o">=</span>tpcc
+<span class="nv">password</span><span class="o">=</span>***********
+<span class="nv">warehouses</span><span class="o">=</span><span class="m">10</span>
+<span class="nv">loadWorkers</span><span class="o">=</span><span class="m">4</span>
+fileLocation<span class="w"> </span><span class="o">(</span>not<span class="w"> </span>defined<span class="o">)</span>
+csvNullValue<span class="w"> </span><span class="o">(</span>not<span class="w"> </span>defined<span class="w"> </span>-<span class="w"> </span>using<span class="w"> </span>default<span class="w"> </span><span class="s1">&#39;NULL&#39;</span><span class="o">)</span>
+
+Worker<span class="w"> </span><span class="m">000</span>:<span class="w"> </span>Loading<span class="w"> </span>ITEM
+Worker<span class="w"> </span><span class="m">001</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">1</span>
+Worker<span class="w"> </span><span class="m">002</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">2</span>
+Worker<span class="w"> </span><span class="m">003</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">3</span>
+Worker<span class="w"> </span><span class="m">000</span>:<span class="w"> </span>Loading<span class="w"> </span>ITEM<span class="w"> </span><span class="k">done</span>
+Worker<span class="w"> </span><span class="m">000</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">4</span>
+Worker<span class="w"> </span><span class="m">002</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">2</span><span class="w"> </span><span class="k">done</span>
+Worker<span class="w"> </span><span class="m">002</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">5</span>
+Worker<span class="w"> </span><span class="m">001</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="k">done</span>
+Worker<span class="w"> </span><span class="m">001</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">6</span>
+Worker<span class="w"> </span><span class="m">003</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">3</span><span class="w"> </span><span class="k">done</span>
+Worker<span class="w"> </span><span class="m">003</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">7</span>
+Worker<span class="w"> </span><span class="m">000</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">4</span><span class="w"> </span><span class="k">done</span>
+Worker<span class="w"> </span><span class="m">000</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">8</span>
+Worker<span class="w"> </span><span class="m">001</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">6</span><span class="w"> </span><span class="k">done</span>
+Worker<span class="w"> </span><span class="m">001</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">9</span>
+Worker<span class="w"> </span><span class="m">002</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">5</span><span class="w"> </span><span class="k">done</span>
+Worker<span class="w"> </span><span class="m">002</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">     </span><span class="m">10</span>
+Worker<span class="w"> </span><span class="m">003</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">7</span><span class="w"> </span><span class="k">done</span>
+Worker<span class="w"> </span><span class="m">000</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">8</span><span class="w"> </span><span class="k">done</span>
+Worker<span class="w"> </span><span class="m">001</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">      </span><span class="m">9</span><span class="w"> </span><span class="k">done</span>
+Worker<span class="w"> </span><span class="m">002</span>:<span class="w"> </span>Loading<span class="w"> </span>Warehouse<span class="w">     </span><span class="m">10</span><span class="w"> </span><span class="k">done</span>
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="c1"># Loading SQL file ./sql.common/indexCreates.sql</span>
+<span class="c1"># ------------------------------------------------------------</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_warehouse<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>bmsql_warehouse_pkey
+primary<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>w_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_district<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>bmsql_district_pkey
+primary<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>d_w_id,<span class="w"> </span>d_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_customer<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>bmsql_customer_pkey
+primary<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>c_w_id,<span class="w"> </span>c_d_id,<span class="w"> </span>c_id<span class="o">)</span><span class="p">;</span>
+create<span class="w"> </span>index<span class="w"> </span>bmsql_customer_idx1
+on<span class="w">  </span>bmsql_customer<span class="w"> </span><span class="o">(</span>c_w_id,<span class="w"> </span>c_d_id,<span class="w"> </span>c_last,<span class="w"> </span>c_first<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_oorder<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>bmsql_oorder_pkey
+primary<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>o_w_id,<span class="w"> </span>o_d_id,<span class="w"> </span>o_id<span class="o">)</span><span class="p">;</span>
+create<span class="w"> </span>unique<span class="w"> </span>index<span class="w"> </span>bmsql_oorder_idx1
+on<span class="w">  </span>bmsql_oorder<span class="w"> </span><span class="o">(</span>o_w_id,<span class="w"> </span>o_d_id,<span class="w"> </span>o_carrier_id,<span class="w"> </span>o_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_new_order<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>bmsql_new_order_pkey
+primary<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>no_w_id,<span class="w"> </span>no_d_id,<span class="w"> </span>no_o_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_order_line<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>bmsql_order_line_pkey
+primary<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>ol_w_id,<span class="w"> </span>ol_d_id,<span class="w"> </span>ol_o_id,<span class="w"> </span>ol_number<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_stock<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>bmsql_stock_pkey
+primary<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>s_w_id,<span class="w"> </span>s_i_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_item<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>bmsql_item_pkey
+primary<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>i_id<span class="o">)</span><span class="p">;</span>
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="c1"># Loading SQL file ./sql.common/foreignKeys.sql</span>
+<span class="c1"># ------------------------------------------------------------</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_district<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>d_warehouse_fkey
+foreign<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>d_w_id<span class="o">)</span>
+references<span class="w"> </span>bmsql_warehouse<span class="w"> </span><span class="o">(</span>w_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_customer<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>c_district_fkey
+foreign<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>c_w_id,<span class="w"> </span>c_d_id<span class="o">)</span>
+references<span class="w"> </span>bmsql_district<span class="w"> </span><span class="o">(</span>d_w_id,<span class="w"> </span>d_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_history<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>h_customer_fkey
+foreign<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>h_c_w_id,<span class="w"> </span>h_c_d_id,<span class="w"> </span>h_c_id<span class="o">)</span>
+references<span class="w"> </span>bmsql_customer<span class="w"> </span><span class="o">(</span>c_w_id,<span class="w"> </span>c_d_id,<span class="w"> </span>c_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_history<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>h_district_fkey
+foreign<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>h_w_id,<span class="w"> </span>h_d_id<span class="o">)</span>
+references<span class="w"> </span>bmsql_district<span class="w"> </span><span class="o">(</span>d_w_id,<span class="w"> </span>d_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_new_order<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>no_order_fkey
+foreign<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>no_w_id,<span class="w"> </span>no_d_id,<span class="w"> </span>no_o_id<span class="o">)</span>
+references<span class="w"> </span>bmsql_oorder<span class="w"> </span><span class="o">(</span>o_w_id,<span class="w"> </span>o_d_id,<span class="w"> </span>o_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_oorder<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>o_customer_fkey
+foreign<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>o_w_id,<span class="w"> </span>o_d_id,<span class="w"> </span>o_c_id<span class="o">)</span>
+references<span class="w"> </span>bmsql_customer<span class="w"> </span><span class="o">(</span>c_w_id,<span class="w"> </span>c_d_id,<span class="w"> </span>c_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_order_line<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>ol_order_fkey
+foreign<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>ol_w_id,<span class="w"> </span>ol_d_id,<span class="w"> </span>ol_o_id<span class="o">)</span>
+references<span class="w"> </span>bmsql_oorder<span class="w"> </span><span class="o">(</span>o_w_id,<span class="w"> </span>o_d_id,<span class="w"> </span>o_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_order_line<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>ol_stock_fkey
+foreign<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>ol_supply_w_id,<span class="w"> </span>ol_i_id<span class="o">)</span>
+references<span class="w"> </span>bmsql_stock<span class="w"> </span><span class="o">(</span>s_w_id,<span class="w"> </span>s_i_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_stock<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>s_warehouse_fkey
+foreign<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>s_w_id<span class="o">)</span>
+references<span class="w"> </span>bmsql_warehouse<span class="w"> </span><span class="o">(</span>w_id<span class="o">)</span><span class="p">;</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_stock<span class="w"> </span>add<span class="w"> </span>constraint<span class="w"> </span>s_item_fkey
+foreign<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>s_i_id<span class="o">)</span>
+references<span class="w"> </span>bmsql_item<span class="w"> </span><span class="o">(</span>i_id<span class="o">)</span><span class="p">;</span>
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="c1"># Loading SQL file ./sql.postgres/extraHistID.sql</span>
+<span class="c1"># ------------------------------------------------------------</span>
+--<span class="w"> </span>----
+--<span class="w"> </span>Extra<span class="w"> </span>Schema<span class="w"> </span>objects/definitions<span class="w"> </span><span class="k">for</span><span class="w"> </span>history.hist_id<span class="w"> </span><span class="k">in</span><span class="w"> </span>PostgreSQL
+--<span class="w"> </span>----
+--<span class="w"> </span>----
+--<span class="w">      </span>This<span class="w"> </span>is<span class="w"> </span>an<span class="w"> </span>extra<span class="w"> </span>column<span class="w"> </span>not<span class="w"> </span>present<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>TPC-C
+--<span class="w">      </span>specs.<span class="w"> </span>It<span class="w"> </span>is<span class="w"> </span>useful<span class="w"> </span><span class="k">for</span><span class="w"> </span>replication<span class="w"> </span>systems<span class="w"> </span>like
+--<span class="w">      </span>Bucardo<span class="w"> </span>and<span class="w"> </span>Slony-I,<span class="w"> </span>which<span class="w"> </span>like<span class="w"> </span>to<span class="w"> </span>have<span class="w"> </span>a<span class="w"> </span>primary
+--<span class="w">      </span>key<span class="w"> </span>on<span class="w"> </span>a<span class="w"> </span>table.<span class="w"> </span>It<span class="w"> </span>is<span class="w"> </span>an<span class="w"> </span>auto-increment<span class="w"> </span>or<span class="w"> </span>serial
+--<span class="w">      </span>column<span class="w"> </span>type.<span class="w"> </span>The<span class="w"> </span>definition<span class="w"> </span>below<span class="w"> </span>is<span class="w"> </span>compatible
+--<span class="w">      </span>with<span class="w"> </span>Oracle<span class="w"> </span>11g,<span class="w"> </span>using<span class="w"> </span>a<span class="w"> </span>sequence<span class="w"> </span>and<span class="w"> </span>a<span class="w"> </span>trigger.
+--<span class="w"> </span>----
+--<span class="w"> </span>Adjust<span class="w"> </span>the<span class="w"> </span>sequence<span class="w"> </span>above<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>max<span class="o">(</span>hist_id<span class="o">)</span>
+<span class="k">select</span><span class="w"> </span>setval<span class="o">(</span><span class="s1">&#39;bmsql_hist_id_seq&#39;</span>,<span class="w"> </span><span class="o">(</span><span class="k">select</span><span class="w"> </span>max<span class="o">(</span>hist_id<span class="o">)</span><span class="w"> </span>from<span class="w"> </span>bmsql_history<span class="o">))</span><span class="p">;</span>
+--<span class="w"> </span>Make<span class="w"> </span>nextval<span class="o">(</span>seq<span class="o">)</span><span class="w"> </span>the<span class="w"> </span>default<span class="w"> </span>value<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>hist_id<span class="w"> </span>column.
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_history
+alter<span class="w"> </span>column<span class="w"> </span>hist_id<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>nextval<span class="o">(</span><span class="s1">&#39;bmsql_hist_id_seq&#39;</span><span class="o">)</span><span class="p">;</span>
+--<span class="w"> </span>Add<span class="w"> </span>a<span class="w"> </span>primary<span class="w"> </span>key<span class="w"> </span>history<span class="o">(</span>hist_id<span class="o">)</span>
+alter<span class="w"> </span>table<span class="w"> </span>bmsql_history<span class="w"> </span>add<span class="w"> </span>primary<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>hist_id<span class="o">)</span><span class="p">;</span>
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="c1"># Loading SQL file ./sql.postgres/buildFinish.sql</span>
+<span class="c1"># ------------------------------------------------------------</span>
+--<span class="w"> </span>----
+--<span class="w"> </span>Extra<span class="w"> </span>commands<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>after<span class="w"> </span>the<span class="w"> </span>tables<span class="w"> </span>are<span class="w"> </span>created,<span class="w"> </span>loaded,
+--<span class="w"> </span>indexes<span class="w"> </span>built<span class="w"> </span>and<span class="w"> </span>extra<span class="err">&#39;</span>s<span class="w"> </span>created.
+--<span class="w"> </span>PostgreSQL<span class="w"> </span>version.
+--<span class="w"> </span>----
+vacuum<span class="w"> </span>analyze<span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<p>运行tpcc</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code>$<span class="w"> </span>bash<span class="w"> </span>benchmarksql-5.0/run/runBenchmark.sh<span class="w"> </span>props.pg
+<span class="m">14</span>:40:50,112<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>
+<span class="m">14</span>:40:50,114<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>+-------------------------------------------------------------+
+<span class="m">14</span>:40:50,115<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w">      </span>BenchmarkSQL<span class="w"> </span>v5.0
+<span class="m">14</span>:40:50,115<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>+-------------------------------------------------------------+
+<span class="m">14</span>:40:50,115<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w">  </span><span class="o">(</span>c<span class="o">)</span><span class="w"> </span><span class="m">2003</span>,<span class="w"> </span>Raul<span class="w"> </span>Barbosa
+<span class="m">14</span>:40:50,116<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w">  </span><span class="o">(</span>c<span class="o">)</span><span class="w"> </span><span class="m">2004</span>-2016,<span class="w"> </span>Denis<span class="w"> </span>Lussier
+<span class="m">14</span>:40:50,120<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w">  </span><span class="o">(</span>c<span class="o">)</span><span class="w"> </span><span class="m">2016</span>,<span class="w"> </span>Jan<span class="w"> </span>Wieck
+<span class="m">14</span>:40:50,120<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>+-------------------------------------------------------------+
+<span class="m">14</span>:40:50,121<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>
+<span class="m">14</span>:40:50,122<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">db</span><span class="o">=</span>postgres
+<span class="m">14</span>:40:50,126<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">driver</span><span class="o">=</span>org.postgresql.Driver
+<span class="m">14</span>:40:50,127<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">conn</span><span class="o">=</span>jdbc:postgresql://localhost:5432/benchmark
+<span class="m">14</span>:40:50,128<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">user</span><span class="o">=</span>tpcc
+<span class="m">14</span>:40:50,128<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>
+<span class="m">14</span>:40:50,134<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">warehouses</span><span class="o">=</span><span class="m">10</span>
+<span class="m">14</span>:40:50,136<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">terminals</span><span class="o">=</span><span class="m">1</span>
+<span class="m">14</span>:40:50,140<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">runMins</span><span class="o">=</span><span class="m">5</span>
+<span class="m">14</span>:40:50,140<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">limitTxnsPerMin</span><span class="o">=</span><span class="m">300</span>
+<span class="m">14</span>:40:50,143<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">terminalWarehouseFixed</span><span class="o">=</span><span class="nb">true</span>
+<span class="m">14</span>:40:50,145<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>
+<span class="m">14</span>:40:50,147<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">newOrderWeight</span><span class="o">=</span><span class="m">45</span>
+<span class="m">14</span>:40:50,150<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">paymentWeight</span><span class="o">=</span><span class="m">43</span>
+<span class="m">14</span>:40:50,151<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">orderStatusWeight</span><span class="o">=</span><span class="m">4</span>
+<span class="m">14</span>:40:50,152<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">deliveryWeight</span><span class="o">=</span><span class="m">4</span>
+<span class="m">14</span>:40:50,152<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">stockLevelWeight</span><span class="o">=</span><span class="m">4</span>
+<span class="m">14</span>:40:50,153<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>
+<span class="m">14</span>:40:50,153<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">resultDirectory</span><span class="o">=</span>my_result_%tY-%tm-%td_%tH%tM%tS
+<span class="m">14</span>:40:50,154<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">osCollectorScript</span><span class="o">=</span>./misc/os_collector_linux.py
+<span class="m">14</span>:40:50,156<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>
+<span class="m">14</span>:40:50,183<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>copied<span class="w"> </span>props.pg<span class="w"> </span>to<span class="w"> </span>my_result_2023-03-01_144050/run.properties
+<span class="m">14</span>:40:50,184<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>created<span class="w"> </span>my_result_2023-03-01_144050/data/runInfo.csv<span class="w"> </span><span class="k">for</span><span class="w"> </span>runID<span class="w"> </span><span class="m">3</span>
+<span class="m">14</span>:40:50,187<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>writing<span class="w"> </span>per<span class="w"> </span>transaction<span class="w"> </span>results<span class="w"> </span>to<span class="w"> </span>my_result_2023-03-01_144050/data/result.csv
+<span class="m">14</span>:40:50,194<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">osCollectorScript</span><span class="o">=</span>./misc/os_collector_linux.py
+<span class="m">14</span>:40:50,195<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">osCollectorInterval</span><span class="o">=</span><span class="m">1</span>
+<span class="m">14</span>:40:50,196<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">osCollectorSSHAddr</span><span class="o">=</span>null
+<span class="m">14</span>:40:50,197<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span><span class="nv">osCollectorDevices</span><span class="o">=</span>net_ens33<span class="w"> </span>blk_sda
+<span class="m">14</span>:40:50,323<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,
+<span class="m">14</span>:40:50,430<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>C<span class="w"> </span>value<span class="w"> </span><span class="k">for</span><span class="w"> </span>C_LAST<span class="w"> </span>during<span class="w"> </span>load:<span class="w"> </span><span class="m">199</span>
+<span class="m">14</span>:40:50,430<span class="w"> </span>Term-00,<span class="w"> </span>Running<span class="w"> </span>Average<span class="w"> </span>tpmTOTAL:<span class="w"> </span><span class="m">295</span>.26<span class="w">    </span>Current<span class="w"> </span>tpmTOTAL:<span class="w"> </span><span class="m">9780</span><span class="w">    </span>Memory<span class="w"> </span>Usage:<span class="w"> </span>6MB<span class="w"> </span>/<span class="w"> </span>30MB<span class="w">                                                 </span><span class="m">14</span>:45:50,798<span class="w"> </span><span class="o">[</span>Thread-1<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w">                                                                                                              </span><span class="m">14</span>:45:50,799<span class="w"> </span><span class="o">[</span>Thread-1<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w">                                                        </span>
+<span class="m">14</span>:45:50,800<span class="w"> </span><span class="o">[</span>Thread-1<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>Measured<span class="w"> </span>tpmC<span class="w"> </span><span class="o">(</span>NewOrders<span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">132</span>.85
+<span class="m">14</span>:45:50,804<span class="w"> </span><span class="o">[</span>Thread-1<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>Measured<span class="w"> </span><span class="nv">tpmTOTAL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">295</span>.07
+<span class="m">14</span>:45:50,811<span class="w"> </span><span class="o">[</span>Thread-1<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>Session<span class="w"> </span><span class="nv">Start</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="m">2023</span>-03-01<span class="w"> </span><span class="m">14</span>:40:50
+<span class="m">14</span>:45:50,812<span class="w"> </span><span class="o">[</span>Thread-1<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>Session<span class="w"> </span><span class="nv">End</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="m">2023</span>-03-01<span class="w"> </span><span class="m">14</span>:45:50
+<span class="m">14</span>:45:50,813<span class="w"> </span><span class="o">[</span>Thread-1<span class="o">]</span><span class="w"> </span>INFO<span class="w">   </span>jTPCC<span class="w"> </span>:<span class="w"> </span>Term-00,<span class="w"> </span>Transaction<span class="w"> </span><span class="nv">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">147</span>
+</code></pre></div></td></tr></table></div>
+<p>生成报告</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code>postgres@ubuntu:~/benchmarksql-5.0/run$<span class="w"> </span>bash<span class="w"> </span>./generateReport.sh<span class="w"> </span>my_result_2023-03-01_144050
+Generating<span class="w"> </span>my_result_2023-03-01_144050/tpm_nopm.png<span class="w"> </span>...<span class="w"> </span>OK
+Generating<span class="w"> </span>my_result_2023-03-01_144050/latency.png<span class="w"> </span>...<span class="w"> </span>OK
+Generating<span class="w"> </span>my_result_2023-03-01_144050/cpu_utilization.png<span class="w"> </span>...<span class="w"> </span>OK
+Generating<span class="w"> </span>my_result_2023-03-01_144050/dirty_buffers.png<span class="w"> </span>...<span class="w"> </span>OK
+Generating<span class="w"> </span>my_result_2023-03-01_144050/blk_sda_iops.png<span class="w"> </span>...<span class="w"> </span>OK
+Generating<span class="w"> </span>my_result_2023-03-01_144050/blk_sda_kbps.png<span class="w"> </span>...<span class="w"> </span>OK
+Generating<span class="w"> </span>my_result_2023-03-01_144050/net_ens33_iops.png<span class="w"> </span>...<span class="w"> </span>OK
+Generating<span class="w"> </span>my_result_2023-03-01_144050/net_ens33_kbps.png<span class="w"> </span>...<span class="w"> </span>OK
+Generating<span class="w"> </span>my_result_2023-03-01_144050/report.html<span class="w"> </span>...<span class="w"> </span>OK
+</code></pre></div></td></tr></table></div>
+<p>查看html报告</p>
+<p><img alt="1677684166119" src="../../images/1677684166119.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/sufangmu" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.top", "search.suggest", "search.highlight", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "header.autohide"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="../../../javascripts/polyfill.min.js"></script>
+      
+        <script src="../../../javascripts/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
